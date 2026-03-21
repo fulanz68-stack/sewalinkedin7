@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dota 2 · referral Ramadhan – Premium Pirate Edition</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & GLOBAL ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #2a4a6a, #0a1a2a);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* PANEL UTAMA */
+    .phone-panel {
+      width: 460px;
+      max-width: 100%;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 52px;
+      padding: 32px 24px 44px 24px;
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      overflow: visible;
+      transition: all 0.3s ease;
+    }
+
+    .phone-panel::before { display: none; }
+    .panel-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+
+    #left-panel {
+      box-shadow: 0 40px 60px -20px black, 0 0 0 2px rgba(100, 150, 255, 0.2) inset, 0 0 40px rgba(0, 100, 255, 0.2), 0 20px 30px -10px rgba(0, 0, 0, 0.8), 0 -5px 20px rgba(255, 255, 255, 0.05) inset, 0 10px 20px rgba(0, 0, 0, 0.5), 8px 8px 20px rgba(0, 0, 0, 0.6), -4px -4px 15px rgba(255, 255, 255, 0.05);
+    }
+
+    /* BANNER */
+    .banner-container { position: relative; width: 100%; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1) inset; }
+    .banner-container video { width: 100%; height: auto; min-height: 220px; display: block; object-fit: cover; }
+    .banner-header { position: absolute; top: -2px; left: 50%; transform: translateX(-50%); width: 170px; background: linear-gradient(145deg, #4F8BFF, #2F5EDB); border-radius: 0 0 28px 28px; padding: 6px 0 10px 0; box-shadow: 0 12px 20px -8px rgba(0, 70, 200, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 -2px 4px rgba(0, 0, 0, 0.2) inset; display: flex; align-items: center; justify-content: center; z-index: 50; border-top: 1px solid rgba(255, 255, 255, 0.3); }
+    .banner-header span { font-weight: 700; font-size: 1.2rem; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); line-height: 1; }
+    .admin-icon-banner { position: absolute; top: 14px; right: 14px; font-size: 1.2rem; color: #3b82f6; cursor: pointer; transition: transform 0.2s; z-index: 60; background: transparent; }
+    .admin-icon-banner:hover { transform: scale(1.1); color: #fbbf24; }
+    .skills-overlay { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 18px; padding: 0 12px; pointer-events: none; z-index: 50; }
+    .skill-icon { background: rgba(20, 20, 30, 0.8); backdrop-filter: blur(8px); border-radius: 40px; padding: 6px 18px; border: 1px solid rgba(255, 255, 255, 0.3); color: #f0e0d0; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+    /* STATS BLOCK */
+    .stats-block { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); border-radius: 28px; padding: 18px 22px; border: 1px solid rgba(255,255,255,0.15); }
+    .stat-item { margin-bottom: 18px; }
+    .stat-header { display: flex; justify-content: space-between; color: #d0d8ff; font-size: 1rem; margin-bottom: 6px; font-weight: 600; }
+    .stat-header span:first-child { color: #fff; }
+    .progress-container { display: flex; align-items: center; gap: 12px; }
+    .progress-bar-bg { flex: 1; height: 5px; background: rgba(0,0,0,0.6); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
+    .progress-fill { height: 100%; width: 100%; border-radius: 20px; position: relative; animation: redGlowPulse 1.8s infinite ease-in-out; }
+    .fill-newacc { background: linear-gradient(90deg, #ff3333, #cc0000); box-shadow: 0 0 15px #ff4d4d, 0 0 30px #ff1a1a; }
+    .fill-unrestrict { background: linear-gradient(90deg, #ff4d4d, #b30000); box-shadow: 0 0 15px #ff6666, 0 0 30px #ff3333; }
+    @keyframes redGlowPulse { 0% { opacity: 0.9; filter: brightness(1); box-shadow: 0 0 8px #ff4d4d, 0 0 15px #ff1a1a; } 50% { opacity: 1; filter: brightness(1.4); box-shadow: 0 0 20px #ff6666, 0 0 40px #ff3333, 0 0 60px #ff0000; } 100% { opacity: 0.9; filter: brightness(1); box-shadow: 0 0 8px #ff4d4d, 0 0 15px #ff1a1a; } }
+    .progress-fill::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transform: translateX(-100%); animation: shimmer 2.5s infinite; pointer-events: none; border-radius: 20px; }
+    @keyframes shimmer { 100% { transform: translateX(100%); } }
+    .chest-icon { font-size: 2.2rem; color: #ffd966; cursor: pointer; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); transition: transform 0.2s; }
+    .chest-icon:hover { transform: scale(1.15); }
+    .week-row { display: flex; justify-content: space-between; color: #d0d8ff; font-size: 1rem; margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2); font-weight: 600; }
+    .week-value { color: #8babff; font-size: 1.2rem; }
+
+    .streamer-info { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border-radius: 44px; padding: 12px 20px; display: flex; align-items: center; gap: 14px; border: 1px solid rgba(255,255,255,0.15); }
+    .streamer-avatar { width: 44px; height: 44px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #8babff; border: 2px solid rgba(255,255,255,0.2); font-size: 1.2rem; }
+    .streamer-text { flex: 1; font-size: 0.9rem; color: #c0caf0; }
+
+    /* FLOATING NAVIGATION */
+    .floating-nav-container { position: relative; width: 100%; margin-top: 6px; display: flex; justify-content: center; z-index: 100; }
+    .floating-nav-bar { background: rgba(20, 20, 30, 0.85); backdrop-filter: blur(12px); border-radius: 44px; padding: 12px 28px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset; display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 400px; position: relative; margin: 0 auto; }
+    .nav-icon { color: #b0c0e0; font-size: 1.3rem; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 5px; }
+    .nav-icon span { font-size: 0.7rem; font-weight: 500; }
+    .nav-icon:hover { color: #fff; transform: translateY(-2px); }
+    .nav-icon.rules-nav-item i { color: #ff8c00 !important; animation: pulse 1.5s infinite; filter: drop-shadow(0 0 8px #ff8c00); }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    .nav-left, .nav-right { display: flex; gap: 22px; align-items: center; }
+    .center-home-button { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 75px; height: 75px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 101; background: #000000; box-shadow: 0 0 0 3px rgba(0,0,0,0.3), 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3); overflow: visible; }
+    .center-home-button img { width: 210%; height: 210%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6)); pointer-events: none; animation: rotateInPlace 12s linear infinite; transform-origin: center center; }
+    @keyframes rotateInPlace { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .center-home-button:hover { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 0 4px rgba(0,0,0,0.4), 0 0 25px rgba(0,0,0,0.7), 0 15px 25px rgba(0,0,0,0.4); }
+    .center-home-button:active { transform: translateX(-50%) scale(0.98); }
+
+    /* PANEL KANAN */
+    #right-panel, #referral-panel { display: none; }
+    .back-btn { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 215, 0, 0.5); color: #ffd966; font-size: 0.9rem; padding: 8px 18px; border-radius: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; width: fit-content; transition: 0.2s; margin-bottom: 6px; }
+    .info-icon-right { font-size: 1.5rem; color: #fbbf24; cursor: pointer; position: absolute; top: 18px; right: 22px; z-index: 10; transition: transform 0.2s; }
+    .info-icon-right:hover { transform: scale(1.1); color: #fff; }
+    .section-head { font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, #a0b5ff, #6b9aff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .progress-checkpoint-simple { background: rgba(10, 20, 30, 0.5); backdrop-filter: blur(4px); border-radius: 32px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid rgba(255, 215, 0, 0.2); }
+    .progress-bar-with-runes { position: relative; height: 34px; display: flex; align-items: center; justify-content: space-between; }
+    .progress-bar-track { position: absolute; top: 50%; left: 0; right: 0; height: 4px; background: rgba(0,0,0,0.5); border-radius: 10px; transform: translateY(-50%); border: 1px solid rgba(255,215,0,0.2); z-index: 1; }
+    .progress-bar-fill { position: absolute; top: 50%; left: 0; height: 4px; background: linear-gradient(90deg, #fbbf24, #f59e0b); border-radius: 10px; transform: translateY(-50%); transition: width 0.5s; box-shadow: 0 0 8px #fbbf24; z-index: 2; }
+    .rune-marker { position: relative; z-index: 3; width: 30px; height: 30px; background: rgba(20,30,45,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #3a4a6a; color: #8a9fc0; font-size: 1rem; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+    .rune-marker.completed { background: linear-gradient(145deg, #fbbf24, #f59e0b); border-color: #ffd700; color: #1a1a2e; box-shadow: 0 0 12px #fbbf24; }
+
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hero-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); border-radius: 26px; padding: 16px 14px 12px; transition: all 0.2s; box-shadow: 0 15px 25px -10px black; display: flex; flex-direction: column; position: relative; }
+    .hero-card:hover { border-color: #6b9aff; transform: translateY(-4px); }
+    .hero-avatar { width: 100%; aspect-ratio: 1/1; border-radius: 20px; margin-bottom: 10px; background: linear-gradient(145deg, #0f2a3a, #0a1a2a); display: flex; align-items: center; justify-content: center; font-size: 3.2rem; border: 1px solid rgba(255,255,255,0.1); }
+    .hero-avatar i { filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.6)); text-shadow: 2px 2px 0 rgba(0,0,0,0.4), 4px 4px 0 rgba(0,0,0,0.3); }
+    .hero-card.axe .hero-avatar i { color: #0077b5; }
+    .hero-card.shaker .hero-avatar i { color: #f48024; }
+    .warning-icon { position: absolute; top: 14px; right: 14px; color: #ffaa00; font-size: 1.2rem; filter: drop-shadow(0 0 5px #ffaa00); cursor: pointer; }
+    .hero-info { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .hero-name { font-weight: 700; color: #fff; font-size: 1.1rem; }
+    .account-details { margin: 5px 0; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 14px; }
+    .account-details p { color: #d0dcff; font-size: 0.7rem; margin-bottom: 5px; display: flex; align-items: center; gap: 7px; }
+    .account-details i { color: #3b82f6; width: 14px; font-size: 0.8rem; }
+    .btn-sewa-wrapper { display: flex; justify-content: center; margin-top: 6px; position: relative; }
+    .btn-sewa-icon { background: #000; border: 2px solid #3b82f6; border-radius: 50px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #3b82f6; cursor: pointer; transition: all 0.2s; }
+    .btn-sewa-icon i { font-size: 1.3rem; }
+    .btn-sewa-icon:hover { background: #3b82f6; border-color: #fff; color: #fff; transform: scale(1.1); }
+    .sewa-info-text { background: rgba(0, 20, 0, 0.4); border-radius: 18px; padding: 8px 10px; margin: 8px 0 4px; border: 1px solid rgba(255,215,0,0.3); color: #f0e68c; font-size: 0.7rem; text-align: center; }
+    .btn-laporan-wrapper { display: flex; justify-content: center; margin: 6px 0 0; position: relative; }
+    .btn-laporan-icon { background: #000; border: 2px solid #3b82f6; border-radius: 50px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; color: #3b82f6; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+    .btn-laporan-icon i { font-size: 1.5rem; }
+    .btn-laporan-icon:hover { background: #3b82f6; border-color: #fff; color: #fff; transform: scale(1.1); }
+    .btn-with-tooltip { position: relative; }
+    .tooltip-text { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fbbf24; padding: 4px 8px; border-radius: 20px; font-size: 0.6rem; font-weight: 600; white-space: nowrap; border: 1px solid #fbbf24; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    .btn-with-tooltip:hover .tooltip-text { opacity: 1; }
+
+    /* FORM MODAL */
+    .form-modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index:20000; }
+    .form-modal-content { width:360px; background-image: url('background.png'); background-size: cover; background-position: center; position: relative; border-radius:32px; padding:26px; box-shadow:0 0 30px rgba(59,130,246,0.3); color:white; }
+    .form-modal-content::before { display: none; }
+    .form-modal-content h3 { text-align:center; margin-bottom:22px; color:#e0cba0; font-size:1.6rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; color:#e0cba0; font-size:0.9rem; margin-bottom:5px; font-weight:600; }
+    .form-group input { width:100%; padding:12px 16px; background:rgba(0,0,0,0.4); border:1px solid #b8964b; border-radius:32px; color:white; font-size:0.9rem; }
+    .form-group input:focus { outline:none; border-color:#e0cba0; box-shadow:0 0 10px rgba(224,203,160,0.3); }
+    .form-group input[readonly] { background:rgba(0,0,0,0.3); color:#e0cba0; font-weight:bold; }
+    .modal-close-btn { position:absolute; top:15px; right:15px; background:rgba(0,0,0,0.5); border:1px solid #b8964b; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#e0cba0; cursor:pointer; z-index:3; }
+    .btn-form-submit { background: transparent; border: 2px solid #b8964b; border-radius: 50px; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; color: #e0cba0; cursor: pointer; margin: 22px auto 5px; transition: all 0.2s; }
+    .btn-form-submit i { font-size: 1.6rem; }
+    .btn-form-submit:hover { background: rgba(180, 150, 70, 0.2); border-color: #e0cba0; color: #ffffff; }
+
+    /* Walkthrough overlay */
+    .walkthrough-overlay { position:fixed; top:0; left:0; width:100%; height:100%; z-index:30000; pointer-events:none; display:none; }
+    .walkthrough-hole { position:absolute; background:transparent; border-radius:50%; box-shadow:0 0 0 9999px rgba(0,0,0,0.8); pointer-events:none; z-index:30001; transition:all 0.3s; }
+    .walkthrough-tooltip { position:fixed; z-index:30002; pointer-events:auto; display:none; flex-direction:column; align-items:center; gap:20px; color:white; max-width:280px; text-align:center; }
+    .walkthrough-btn { background:transparent; border:none; color:#fbbf24; font-weight:600; cursor:pointer; padding:4px 8px; }
+    .walkthrough-btn.secondary { color:#a0a0a0; }
+    .walkthrough-btn:hover { color:#fff; }
+    .tutorial-counter { position:fixed; top:20px; left:50%; transform:translateX(-50%); color:white; font-weight:600; z-index:30003; pointer-events:none; }
+    .app-notification { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); backdrop-filter:blur(5px); border:1px solid #3b82f6; border-radius:30px; padding:12px 24px; color:white; z-index:40000; animation:slideDown 2s forwards; }
+    @keyframes slideDown { 0%{opacity:0; transform:translateX(-50%) translateY(-20px);} 15%{opacity:1; transform:translateX(-50%) translateY(0);} 85%{opacity:1; transform:translateX(-50%) translateY(0);} 100%{opacity:0; transform:translateX(-50%) translateY(-20px);} }
+
+    /* ===== ICON LILIN ===== */
+    .candle-icon {
+      position: absolute;
+      cursor: pointer;
+      z-index: 50;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 5px #ffaa33) drop-shadow(0 0 8px #ff8833);
+      animation: candleGlow 1.5s infinite alternate;
+    }
+    .candle-icon img { width: 100%; height: 100%; object-fit: contain; }
+    @keyframes candleGlow { 0% { filter: drop-shadow(0 0 2px #ffaa33) drop-shadow(0 0 4px #ff8833); opacity: 0.85; } 100% { filter: drop-shadow(0 0 8px #ffcc44) drop-shadow(0 0 12px #ffaa33); opacity: 1; } }
+    .candle-icon:hover { transform: scale(1.05); filter: drop-shadow(0 0 12px #ffcc44) drop-shadow(0 0 20px #ffaa33); }
+    .candle-landing { position: absolute; bottom: 570px; right: 60px; width: 130px; height: 150px; z-index: 60; }
+    .candle-right-panel { position: absolute; right: -15px; bottom: -10px; width: 70px; height: 70px; z-index: 15; }
+    
+    /* REFERRAL PANEL */
+    #referral-panel { background-image: url('Background2.png'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; border: 1px solid rgba(180, 150, 70, 0.25); display: none; }
+    #referral-panel::before { display: none; }
+    #referral-panel .panel-content { position: relative; z-index: 2; }
+    .back-btn-pirate { background: rgba(20, 22, 28, 0.8); backdrop-filter: blur(4px); border: 1px solid rgba(180, 150, 70, 0.3); color: #c4b28c; font-size: 0.9rem; padding: 8px 18px; border-radius: 40px; display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-bottom: 14px; transition: all 0.2s; cursor: pointer; font-weight: 500; }
+    .back-btn-pirate:hover { border-color: #b8964b; color: #e0cba0; background: rgba(30, 32, 38, 0.9); }
+    .referral-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .referral-title-block { flex: 1; }
+    .referral-title-main { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #e0cba0; line-height: 1.1; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    .referral-subtitle { color: #d4d4d4; font-size: 0.8rem; margin-top: 3px; font-weight: 400; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .harta-emblem { width: 88px; height: 88px; cursor: pointer; transition: transform 0.2s; background: rgba(0,0,0,0.2); border-radius: 50%; padding: 12px; border: 1px solid rgba(180, 150, 70, 0.5); animation: heartbeat 1.2s ease-in-out infinite; }
+    @keyframes heartbeat { 0% { transform: scale(1); } 25% { transform: scale(1.1); } 35% { transform: scale(1.05); } 45% { transform: scale(1.1); } 55% { transform: scale(1); } 100% { transform: scale(1); } }
+    .harta-emblem:hover { transform: scale(1.05); animation: none; }
+    .harta-emblem img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 8px rgba(180, 150, 70, 0.6)); }
+    
+    .voyage-card { background: rgba(16, 18, 24, 0.7); backdrop-filter: blur(4px); border-radius: 26px; padding: 16px 16px; margin-bottom: 18px; border: 1px solid rgba(180, 150, 70, 0.2); position: relative; }
+    .voyage-label { display: flex; align-items: center; gap: 8px; color: #c4b28c; font-size: 0.9rem; font-weight: 600; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .route-container { position: relative; margin-bottom: 14px; }
+    .route-nodes { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2; }
+    .node { display: flex; flex-direction: column; align-items: center; width: 60px; }
+    .node-marker { width: 38px; height: 38px; background: #15181f; border: 1.5px solid #7a6a4a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #c4b28c; font-size: 1.1rem; margin-bottom: 6px; }
+    .node-marker.harta-marker { background: transparent; border: none; width: auto; height: auto; }
+    .node-marker.harta-marker img { width: 64px; height: 64px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(180, 150, 70, 0.5)); margin-top: -8px; margin-bottom: -8px; }
+    .node-label { color: #d4d4d4; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .route-line-bg { position: absolute; top: 18px; left: 38px; right: 38px; height: 1px; background: rgba(180, 150, 70, 0.2); z-index: 1; }
+    .route-line-fill { width: 8%; height: 100%; background: linear-gradient(90deg, #b8964b, #d4b27a); border-radius: 2px; }
+    
+    .stage-card { background: rgba(14, 16, 22, 0.6); backdrop-filter: blur(4px); border-radius: 22px; padding: 14px 14px; margin-bottom: 14px; border: 1px solid rgba(180, 150, 70, 0.18); position: relative; }
+    .stage-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; position: relative; }
+    .stage-icon { width: 28px; height: 28px; background: #1e212a; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #7a6a4a; color: #b8964b; font-size: 0.9rem; }
+    .stage-title { color: #f0e6d2; font-size: 1.05rem; font-weight: 600; }
+    .stage-sub { color: #b8a88c; font-size: 0.8rem; font-weight: 400; margin-left: 4px; }
+    .candle-stage-left { position: absolute; left: -50px; top: 50%; transform: translateY(-50%); width: 70px; height: 70px; z-index: 10; }
+    .candle-stage-right { position: absolute; right: -50px; bottom: -20px; width: 70px; height: 70px; z-index: 10; }
+    
+    .reward-row { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 0, 0, 0.3); border-radius: 18px; padding: 10px 14px; margin-bottom: 8px; border: 1px solid rgba(180, 150, 70, 0.15); transition: all 0.2s; }
+    .reward-row:last-child { margin-bottom: 0; }
+    .reward-left { display: flex; align-items: center; gap: 10px; }
+    .reward-icon { color: #b8964b; font-size: 0.9rem; width: 20px; text-align: center; }
+    .reward-label { color: #ffffff; font-size: 0.9rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .reward-value { color: #e0cba0; font-weight: 700; font-size: 0.95rem; }
+    .info-box-premium { background: rgba(10, 12, 18, 0.6); backdrop-filter: blur(4px); border-radius: 20px; padding: 14px; margin: 18px 0 14px; border: 1px solid rgba(180, 150, 70, 0.2); }
+    .info-row { display: flex; align-items: center; gap: 10px; color: #ffffff; font-size: 0.85rem; margin-bottom: 8px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .info-row i { color: #b8964b; width: 18px; font-size: 0.9rem; }
+    .btn-pirate-premium { background: transparent; border: 1.5px solid #b8964b; border-radius: 32px; padding: 12px 18px; color: #e0cba0; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; cursor: pointer; font-size: 0.95rem; margin-top: 8px; backdrop-filter: blur(4px); }
+    .btn-pirate-premium:hover { background: rgba(180, 150, 70, 0.2); border-color: #e0cba0; color: #ffffff; }
+    .footer-note { color: #cccccc; font-size: 0.8rem; text-align: center; margin-top: 14px; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .footer-note i { color: #b8964b; margin: 0 4px; }
+
+    /* ===== RULES MODAL - WARNA FONT DIPERBAIKI (SEMUA TERANG) ===== */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 10000; transition: all 0.3s ease; }
+    .rules-container { max-width: 440px; width: 100%; max-height: 85vh; overflow-y: auto; background-image: url('background.png'); background-size: cover; background-position: center; border-radius: 32px; padding: 24px 20px 28px 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); }
+    .rules-title { text-align: center; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: #ffd966; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); border-radius: 40px; padding: 8px 16px; }
+    .rules-title i { color: #ffd700; }
+    .rules-content-block { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); border-radius: 24px; padding: 16px 14px; margin-bottom: 16px; border: 1px solid rgba(212, 175, 55, 0.25); }
+    .rule-item { display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.5); border-radius: 40px; padding: 8px 16px; border-left: 3px solid #d4af37; }
+    .rule-icon { color: #ffd966; width: 28px; font-size: 1rem; text-align: center; }
+    .rule-text { font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.4; color: #f0e6d2; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+    .section-title-block { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: #ffd966; margin: 8px 0 12px 0; display: flex; align-items: center; gap: 8px; border-bottom: 1px dashed rgba(212, 175, 55, 0.5); padding-bottom: 6px; }
+    .section-title-block i { color: #ffd966; }
+    .whatsapp-link { display: flex; align-items: center; gap: 10px; background: rgba(0, 0, 0, 0.5); padding: 8px 14px; border-radius: 40px; margin-bottom: 8px; border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.2s; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #e0cba0; }
+    .whatsapp-link i { color: #25d366; }
+    .whatsapp-link:hover { background: rgba(212, 175, 55, 0.2); border-color: #d4af37; transform: translateX(3px); color: #ffd966; }
+    .payment-list { list-style: none; padding: 0; margin: 0; }
+    .payment-list li { font-family: 'Inter', sans-serif; font-size: 0.75rem; margin-bottom: 8px; color: #e0d5b0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+    .payment-list li i { color: #ffd966; width: 18px; margin-top: 2px; }
+    .restrict-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.45; color: #e0d5b0; margin-bottom: 10px; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+    .close-btn { background: transparent; border: 2px solid #d4af37; border-radius: 40px; padding: 10px 20px; color: #ffd966; font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 16px; width: 100%; background: rgba(0, 0, 0, 0.5); }
+    .close-btn:hover { background: #d4af37; color: #1a1a0a; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+
+    /* ===== ADMIN PANEL (PIRATE THEME FULL CODE) ===== */
+    .admin-modal .modal-content {
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      border: 2px solid #d4af37;
+      width: 480px;
+      max-width: 95%;
+      padding: 24px;
+      border-radius: 32px;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+      position: relative;
+    }
+    .admin-modal .modal-content::before {
+      display: none;
+    }
+    .admin-modal h3 {
+      color: #ffd966;
+      font-family: 'Cinzel', serif;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .admin-modal h3 i {
+      color: #ffd966;
+    }
+    .admin-form-container {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 24px;
+      padding: 18px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .admin-form-title {
+      color: #ffd966;
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    .admin-form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .admin-form-row input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #b8964b;
+      border-radius: 40px;
+      padding: 12px 16px;
+      color: #f0e6d2;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+    }
+    .admin-form-row input:focus {
+      outline: none;
+      border-color: #ffd966;
+      box-shadow: 0 0 10px rgba(255, 217, 102, 0.3);
+    }
+    .admin-form-row input::placeholder {
+      color: #8a7a5a;
+    }
+    .admin-form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .admin-form-actions button {
+      background: transparent;
+      border: 1px solid #d4af37;
+      color: #ffd966;
+      border-radius: 40px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .admin-form-actions button:hover {
+      background: rgba(212, 175, 55, 0.2);
+      transform: scale(1.02);
+    }
+    .admin-mass-btn {
+      background: rgba(212, 175, 55, 0.2);
+      border: 1px solid #d4af37;
+      color: #ffd966;
+      border-radius: 40px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .admin-mass-btn:hover {
+      background: rgba(212, 175, 55, 0.4);
+      transform: scale(1.02);
+    }
+    .admin-table {
+      width: 100%;
+      color: #e0d5b0;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .admin-table th {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 12px;
+      text-align: left;
+      color: #ffd966;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .admin-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      color: #f0e6d2;
+    }
+    .admin-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .admin-actions button {
+      background: transparent;
+      border: 1px solid #d4af37;
+      color: #ffd966;
+      border-radius: 30px;
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      transition: all 0.2s;
+    }
+    .admin-actions button:hover {
+      background: rgba(212, 175, 55, 0.3);
+      transform: scale(1.02);
+    }
+    .admin-delete-all {
+      background: rgba(180, 70, 70, 0.3);
+      border-color: #b86b6b;
+      color: #ffaaaa;
+    }
+    .admin-delete-all:hover {
+      background: rgba(180, 70, 70, 0.5);
+    }
+    
+    /* Email mass preview */
+    .email-mass-preview {
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 12px 0;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      padding: 10px;
+    }
+    .email-preview-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 30px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .email-preview-item.duplicate {
+      background: rgba(180, 70, 70, 0.2);
+      border-left: 3px solid #b86b6b;
+    }
+    .email-preview-item.new {
+      background: rgba(70, 120, 70, 0.2);
+      border-left: 3px solid #6b9a6b;
+    }
+    .badge-duplicate { background: #b86b6b; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.65rem; }
+    .badge-new { background: #6b9a6b; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.65rem; }
+    .btn-remove-email { background: #b86b6b; border: none; color: white; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
+    
+    /* LEADERBOARD MODAL */
+    .leaderboard-modal .modal-content { background-image: url('background.png'); background-size: cover; background-position: center; border: 2px solid #d4af37; width: 420px; max-width: 95%; padding: 20px; border-radius: 28px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+    .leaderboard-modal h3 { color: #ffd966; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 18px; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .leaderboard-modal h3 i { font-size: 2.8rem; color: #ffd966; filter: drop-shadow(0 0 8px rgba(224,203,160,0.5)); animation: heartbeat 1.2s ease-in-out infinite; }
+    .leaderboard-header { display: flex; justify-content: space-between; color: #ffd966; font-weight: 600; padding: 8px 14px; border-bottom: 1px solid rgba(212, 175, 55, 0.5); margin-bottom: 8px; }
+    .leaderboard-list { list-style: none; padding: 0; margin: 0 0 15px 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); background: rgba(0, 0, 0, 0.3); }
+    .leaderboard-list li { display: flex; align-items: center; padding: 10px 14px; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid rgba(212, 175, 55, 0.2); color: #f0e6d2; font-size: 0.85rem; transition: background 0.2s; }
+    .leaderboard-list li:hover { background: rgba(212, 175, 55, 0.1); }
+    .leaderboard-list .email { flex: 2; font-size: 0.75rem; word-break: break-all; }
+    .leaderboard-list .reward { flex: 1; text-align: right; font-weight: 600; color: #ffd966; background: rgba(0, 0, 0, 0.3); padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; cursor: pointer; border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.2s; }
+    .leaderboard-list .reward:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.02); }
+    .invite-list { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; border-radius: 20px; background: rgba(0, 0, 0, 0.4); padding: 12px; border: 1px solid rgba(212, 175, 55, 0.4); scrollbar-width: thin; }
+    .invite-list li { padding: 10px 14px; margin-bottom: 6px; background: rgba(0, 0, 0, 0.3); border-radius: 40px; border: 1px solid rgba(212, 175, 55, 0.2); color: #f0e6d2; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
+    .invite-list li:hover { background: rgba(212, 175, 55, 0.15); border-color: #d4af37; transform: translateX(3px); }
+    .invite-list .email-reward { color: #ffd966; font-weight: 700; background: rgba(0, 0, 0, 0.3); padding: 4px 12px; border-radius: 30px; font-size: 0.8rem; }
+    #modalOverlay .modal-content { background-image: url('background.png'); background-size: cover; background-position: center; border: 2px solid #d4af37; width: 400px; max-width: 95%; padding: 24px; border-radius: 28px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+    #modalOverlay h3 { color: #ffd966; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 20px; font-size: 1.6rem; }
+    #modalOverlay .form-group label { color: #ffd966; }
+    #modalOverlay .form-group input, #modalOverlay .form-group select { background: rgba(0, 0, 0, 0.4); border: 1px solid #b8964b; border-radius: 28px; color: #f0e6d2; font-size: 0.85rem; padding: 10px 14px; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 20px; justify-content: center; }
+    .btn-close { background: transparent; border: 1px solid #d4af37; color: #ffd966; padding: 8px 24px; border-radius: 30px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .btn-close:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.02); }
+    .btn-submit { background: #b8964b; color: #0a0c12; border: none; padding: 8px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-submit:hover { background: #e0cba0; transform: scale(1.02); }
+  </style>
+</head>
+<body>
+  <!-- WALKTHROUGH COUNTER & ELEMEN -->
+  <div class="tutorial-counter" id="tutorialCounter" style="display: none;">0/4</div>
+  <div class="walkthrough-overlay" id="walkthroughOverlay">
+    <div class="walkthrough-hole" id="walkthroughHole"></div>
+  </div>
+  <div class="walkthrough-tooltip" id="walkthroughTooltip" style="display: none;">
+    <div class="instruction" id="walkthroughInstruction"></div>
+    <div class="buttons">
+      <button class="walkthrough-btn" id="walkthroughNext">Next</button>
+      <button class="walkthrough-btn secondary" id="walkthroughSkip">Skip</button>
+    </div>
+  </div>
+
+  <!-- PANEL UTAMA (KIRI) -->
+  <div class="phone-panel" id="left-panel">
+    <div class="panel-content">
+      <div class="banner-container">
+        <video autoplay loop muted playsinline><source src="banner.mp4" type="video/mp4"></video>
+        <div class="banner-header"><span>Sewa Linkedin</span></div>
+        <i class="fas fa-user-cog admin-icon-banner" onclick="openAdminPasswordModal()"></i>
+        <div class="skills-overlay"><span class="skill-icon"><i class="fas fa-heart"></i> Fads 💫</span><span class="skill-icon"><i class="fas fa-dharmachakra"></i> 7777</span></div>
+      </div>
+      <div class="stats-block">
+        <div class="stat-item"><div class="stat-header"><span>NEW ACC</span><span>Rp. 160.000</span></div><div class="progress-container"><div class="progress-bar-bg"><div class="progress-fill fill-newacc" style="width:100%"></div></div><i class="fas fa-chest chest-icon" onclick="showNotification('New acc Rp. 160.000')"></i></div></div>
+        <div class="stat-item"><div class="stat-header"><span>UNRESTRICT</span><span>Rp. 250.000</span></div><div class="progress-container"><div class="progress-bar-bg"><div class="progress-fill fill-unrestrict" style="width:100%"></div></div><i class="fas fa-chest chest-icon" onclick="showNotification('Unrestrict Rp 270.000')"></i></div></div>
+        <div class="week-row"><span>Week</span><span class="week-value">21</span></div>
+      </div>
+      <div class="streamer-info"><div class="streamer-avatar"><i class="fab fa-linkedin"></i></div><div class="streamer-text">Gabung dapatkan Income setiap Minggu nya!</div></div>
+      <div class="floating-nav-container">
+        <div class="floating-nav-bar">
+          <div class="nav-left"><div class="nav-icon rules-nav-item" onclick="openRulesModal()"><i class="fas fa-gavel"></i><span>Rules</span></div><div class="nav-icon" onclick="showReferralPanel()"><i class="fas fa-gift"></i><span>Refferal</span></div></div>
+          <div class="nav-right"><div class="nav-icon" onclick="window.open('https://checkdata7.vercel.app/', '_blank')"><i class="fas fa-credit-card"></i><span>Payment</span></div><div class="nav-icon" onclick="showNotification('Pantau Grup Utama❗')"><i class="fas fa-info-circle"></i><span>Info</span></div></div>
+          <div class="center-home-button" onclick="showRightPanel()"><img src="Jangkar.png" alt="Home"></div>
+        </div>
+      </div>
+    </div>
+    <div class="candle-icon candle-landing"><img src="lilin.png" alt="lilin"></div>
+  </div>
+
+  <!-- PANEL KANAN (HERO SELECTION) -->
+  <div class="phone-panel" id="right-panel">
+    <div class="panel-content">
+      <button class="back-btn" onclick="showLeftPanel()"><i class="fas fa-arrow-left"></i> Kembali</button>
+      <i class="fas fa-info-circle info-icon-right" onclick="restartTutorial()"></i>
+      <div class="progress-checkpoint-simple"><div class="progress-bar-with-runes"><div class="progress-bar-track"></div><div class="progress-bar-fill" id="progressFill" style="width:0%"></div><div class="rune-marker" id="rune1"><i class="fas fa-shopping-cart"></i></div><div class="rune-marker" id="rune2"><i class="fas fa-paper-plane"></i></div><div class="rune-marker" id="rune3"><i class="fas fa-file-alt"></i></div></div></div>
+      <div><div class="section-head">RentYour</div><div class="section-head" style="font-size:2rem; margin-top:-8px;">Linkedin</div></div>
+      <div class="hero-grid">
+        <div class="hero-card axe" id="cardNewAcc"><div class="hero-avatar"><i class="fab fa-linkedin"></i></div><div class="hero-info"><span class="hero-name">NEW ACC</span></div><div class="account-details"><p><i class="fas fa-check-circle"></i> Join Grup Utama</p><p><i class="fas fa-check-circle"></i> Pembuatan 1 Thn</p><p><i class="fas fa-check-circle"></i> Min 20 koneksi</p><p><i class="fas fa-check-circle"></i>Koneksi lama ❌ bukan baru ditambah </p><p><i class="fas fa-check-circle"></i> Akun Pribadi </p></div><div class="btn-sewa-wrapper"><button class="btn-sewa-icon btn-with-tooltip" id="btnNewAcc" onclick="openFormModal('newacc')"><i class="fas fa-shopping-cart"></i><span class="tooltip-text">Sewa New Acc</span></button></div></div>
+        <div class="hero-card shaker" id="cardUnrestrict"><div class="warning-icon" onclick="showWarningTooltip()"><i class="fas fa-exclamation-triangle"></i></div><div class="hero-avatar"><i class="fab fa-linkedin"></i></div><div class="hero-info"><span class="hero-name">UNRESTRICT</span></div><div class="account-details"><p><i class="fas fa-check-circle"></i> Join Grup Utama</p><p><i class="fas fa-check-circle"></i> Pulih dari Restrict</p><p><i class="fas fa-check-circle"></i> Min 20 koneksi</p><p><i class="fas fa-check-circle"></i> Verifikasi Restrict</p><p><i class="fas fa-check-circle"></i> Pernah Gajian minimal 1x</p></div><div class="btn-sewa-wrapper"><button class="btn-sewa-icon btn-with-tooltip" id="btnUnrestrict" onclick="openFormModal('unrestrict')"><i class="fas fa-shopping-cart"></i><span class="tooltip-text">Sewa Unrestrict</span></button></div></div>
+      </div>
+      <div class="sewa-info-text"><i class="fas fa-info-circle"></i> setelah berhasil kirim form & account di approve</div>
+      <div class="btn-laporan-wrapper" style="position: relative;">
+        <button class="btn-laporan-icon btn-with-tooltip" id="btnLaporan" onclick="laporanSewaClick()"><i class="fas fa-file-alt"></i><span class="tooltip-text">Laporan Sewa</span></button>
+        <div class="candle-icon candle-right-panel"><img src="lilin.png" alt="lilin"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM MODALS -->
+  <div class="form-modal-overlay" id="formModalNewAcc"><div class="form-modal-content"><div class="modal-close-btn" onclick="closeFormModals()"><i class="fas fa-times"></i></div><h3>NEW ACCOUNT</h3><div class="form-group"><label>Email :</label><input type="email" id="newacc-email" placeholder="Masukkan email"></div><div class="form-group"><label>Password :</label><input type="password" id="newacc-password" placeholder="Masukkan password"></div><div class="form-group"><label>Koneksi :</label><input type="text" id="newacc-koneksi" placeholder="Jumlah koneksi"></div><div class="form-group"><label>Umur Akun :</label><input type="number" id="newacc-age" placeholder="Contoh 2024"></div><div class="form-group"><label>Group :</label><input type="text" id="newacc-group" value="7777" readonly></div><button class="btn-form-submit btn-with-tooltip" onclick="submitForm('newacc')"><i class="fas fa-paper-plane"></i></button></div></div>
+  <div class="form-modal-overlay" id="formModalUnrestrict"><div class="form-modal-content"><div class="modal-close-btn" onclick="closeFormModals()"><i class="fas fa-times"></i></div><h3>UNRESTRICT</h3><div class="form-group"><label>Email :</label><input type="email" id="unrestrict-email" placeholder="Masukkan email"></div><div class="form-group"><label>Password :</label><input type="password" id="unrestrict-password" placeholder="Masukkan password"></div><div class="form-group"><label>Koneksi :</label><input type="text" id="unrestrict-koneksi" placeholder="Jumlah koneksi"></div><div class="form-group"><label>Umur Akun :</label><input type="number" id="unrestrict-age" placeholder="Contoh 2024"></div><div class="form-group"><label>Group :</label><input type="text" id="unrestrict-group" value="7777" readonly></div><button class="btn-form-submit btn-with-tooltip" onclick="submitForm('unrestrict')"><i class="fas fa-paper-plane"></i></button></div></div>
+
+  <!-- PANEL REFERRAL -->
+  <div class="phone-panel" id="referral-panel">
+    <div class="panel-content">
+      <div class="back-btn-pirate" onclick="showLeftPanel()"><i class="fas fa-arrow-left"></i> Back</div>
+      <div class="referral-header"><div class="referral-title-block"><div class="referral-title-main">Treasure Route</div><div class="referral-subtitle">Invite allies and claim your bounty</div></div><div class="harta-emblem" onclick="openLeaderboardModal()"><img src="Harta.png" alt="Harta"></div></div>
+      <div class="voyage-card"><div class="voyage-label"><i class="fas fa-ship"></i> Voyage Progress</div><div class="route-container"><div class="route-nodes"><div class="node"><div class="node-marker"><i class="fas fa-ship"></i></div><span class="node-label">Start</span></div><div class="node"><div class="node-marker"><i class="fas fa-map"></i></div><span class="node-label">2–4</span></div><div class="node"><div class="node-marker"><i class="fas fa-anchor"></i></div><span class="node-label">5–7</span></div><div class="node"><div class="node-marker harta-marker"><img src="Harta.png" alt="Harta"></div><span class="node-label">8–10</span></div></div><div class="route-line-bg"><div class="route-line-fill" style="width:8%"></div></div></div></div>
+      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-left"><img src="lilin.png" alt="lilin"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 1 <span class="stage-sub">· First Catch</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">2 Referral</span></div><span class="reward-value">Rp 112.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">3 Referral</span></div><span class="reward-value">Rp 160.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">4 Referral</span></div><span class="reward-value">Rp 208.000</span></div></div>
+      <div class="stage-card"><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 2 <span class="stage-sub">· Deep Waters</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">5 Referral</span></div><span class="reward-value">Rp 272.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">6 Referral</span></div><span class="reward-value">Rp 320.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">7 Referral</span></div><span class="reward-value">Rp 368.000</span></div></div>
+      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-right"><img src="lilin.png" alt="lilin"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 3 <span class="stage-sub">· Captain’s Bounty</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">8 Referral</span></div><span class="reward-value">Rp 432.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">9 Referral</span></div><span class="reward-value">Rp 480.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">10 Referral</span></div><span class="reward-value">Rp 640.000</span></div></div>
+      <div class="info-box-premium"><div class="info-row"><i class="fas fa-coins"></i> <span>1 Reff = Rp 48.000 · 10+ Reff = Rp 64.000/undangan</span></div><div class="info-row"><i class="fas fa-clock"></i> <span>Bonus 1x, cair minggu yang sama, reset tiap minggu</span></div><div class="info-row"><i class="fas fa-infinity"></i> <span>Tidak ada batas maksimal undangan</span></div></div>
+      <button class="btn-pirate-premium" onclick="openModal()"><i class="fas fa-qrcode"></i> Buat Kode Refferal</button>
+      <div class="footer-note"><i class="fas fa-skull-crossbones"></i> all stages · claim your bounty <i class="fas fa-skull-crossbones"></i></div>
+    </div>
+  </div>
+
+  <!-- MODAL RULES (WARNA FONT DIPERBAIKI) -->
+  <div class="modal-overlay" id="rulesModal">
+    <div class="rules-container">
+      <div class="rules-title"><i class="fas fa-skull-crossbones"></i> PIRATE'S CODE <i class="fas fa-compass"></i></div>
+      <div class="rules-content-block"><div class="rules-grid"><div class="rule-item"><div class="rule-icon"><i class="fas fa-ship"></i></div><div class="rule-text">Account berumur min 1 Tahun</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-coins"></i></div><div class="rule-text">Minimal 20 Koneksi</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-skull"></i></div><div class="rule-text">Log out Account sebelum di Sewa</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-anchor"></i></div><div class="rule-text">Di larang Log in selama masa sewa</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-map-marked-alt"></i></div><div class="rule-text">Di larang Ganti Email</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-gem"></i></div><div class="rule-text">Pribadi (bukan hasil Jual / Beli)</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-check-circle"></i></div><div class="rule-text">Dapat di verifikasi</div></div></div></div>
+      <div class="rules-content-block"><div class="section-title-block"><i class="fab fa-whatsapp"></i> Crew Gatherings</div><a href="https://chat.whatsapp.com/JRJt2Ngw7G9Fx9yNoMCUfB" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Main Fleet (Group Utama)</a><a href="https://chat.whatsapp.com/DOa2LYFTtlrBUVabORZiAr?mode=wwt" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Discussion (Grup Diskusi)</a><a href="https://chat.whatsapp.com/DOa2LYFTtlrBUVabORZiAr?mode=wwt" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Restrict Help (Grup Bantuan Restrict)</a></div>
+      <div class="rules-content-block"><div class="section-title-block"><i class="fas fa-coins"></i> Bounty & Payment</div><ul class="payment-list"><li><i class="fas fa-coins"></i> Fee sewa Account: <span style="color:#ffd700;">Rp 160.000</span> minggu</li><li><i class="fas fa-coins"></i> Fee Unrestrict: <span style="color:#ffd700;">Rp 250.000</span></li><li><i class="fas fa-scroll"></i> New Account restrict dibayar setelah un-restrict</li><li><i class="fas fa-scroll"></i> Minggu selanjutnya New Account → Old Account</li><li><i class="fas fa-scroll"></i> Old Account restrict sebelum settlement tidak ada kompensasi</li><li><i class="fas fa-clock"></i> Distribusi tiap Kamis/Jum'at</li><li><i class="fas fa-handshake"></i> Refferer: bisa 1 rekening dengan Referralnya</li><li><i class="fas fa-shield-alt"></i> Full payment setiap minggu jika tidak restrict</li></ul></div>
+      <div class="rules-content-block"><div class="section-title-block"><i class="fas fa-exclamation-triangle"></i> The Curse of Restrict</div><div class="restrict-text">Restrict adalah pembatasan sementara LinkedIn karena penggunaan 2 device atau aktivitas spam.</div><div class="restrict-text">Akun dapat dipulihkan via verifikasi identitas. Join grup bantuan Restrict.</div><div class="restrict-text" style="color: #ffd700;">Bonus Rp250.000 untuk akun berhasil un-restrict (berlaku 1x).</div></div>
+      <button class="close-btn" onclick="closeRulesModal()"><i class="fas fa-compass"></i> AYE, UNDERSTOOD <i class="fas fa-skull-crossbones"></i></button>
+    </div>
+  </div>
+
+  <!-- MODAL BUAT KODE -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content" style="width: 400px;">
+      <h3><i class="fas fa-scroll"></i> Create Refferal</h3>
+      <div class="form-group"><label>Email :</label><input type="email" id="emailReferral" oninput="updateCodeFromEmail()" placeholder="contoh: johndoe123@gmail.com"></div>
+      <div class="form-group"><label>Nama :</label><input type="text" id="namaReferral" placeholder="Masukkan nama Anda"></div>
+      <div class="form-group"><label>Payment Method :</label><select id="paymentMethod"><option>Seabank</option><option>Dana</option><option>Ovo</option><option>Gopay</option><option>BRI</option><option>BCA</option><option>Mandiri</option><option>Bsi</option></select></div>
+      <div class="form-group"><label>Target Invite :</label><input type="number" id="targetInvite" placeholder="Contoh: 10"></div>
+      <div class="form-group"><label>Code Refferal :</label><input type="text" id="codeDisplay" readonly style="color:#e0cba0;"></div>
+      <div class="modal-actions"><button class="btn-submit" onclick="generateAndSendNew()">Buat & Kirim</button><button class="btn-close" onclick="closeModal()">Tutup</button></div>
+    </div>
+  </div>
+
+  <!-- MODAL LEADERBOARD -->
+  <div class="modal-overlay leaderboard-modal" id="leaderboardModalOverlay">
+    <div class="modal-content">
+      <h3><i class="fas fa-trophy"></i> Leaderboard Refferal</h3>
+      <div class="leaderboard-header"><span>Code Reff</span><span>Reward</span></div>
+      <ul class="leaderboard-list" id="leaderboardList"><li style="justify-content:center; padding:20px;">Memuat data...</li></ul>
+      <div class="modal-actions"><button class="btn-close" onclick="closeLeaderboardModal()">Tutup</button><button class="btn-close" onclick="refreshLeaderboard()">Refresh</button></div>
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL UNDANGAN -->
+  <div class="modal-overlay leaderboard-modal" id="inviteDetailModalOverlay">
+    <div class="modal-content">
+      <h3><i class="fas fa-envelope"></i> Detail Undangan</h3>
+      <div id="inviteDetailContent" style="padding: 5px;"></div>
+      <div class="modal-actions"><button class="btn-close" onclick="closeInviteDetailModal()">Tutup</button></div>
+    </div>
+  </div>
+
+  <!-- MODAL PASSWORD ADMIN & ADMIN PANEL -->
+  <div class="modal-overlay password-modal" id="adminPasswordModal">
+    <div class="modal-content"><h3><i class="fas fa-lock"></i> Admin Access</h3><input type="password" id="adminPassword" placeholder="Password"><div class="modal-actions"><button class="btn-submit" onclick="checkAdminPassword()">Masuk</button><button class="btn-close" onclick="closeAdminPasswordModal()">Batal</button></div></div>
+  </div>
+
+  <div class="modal-overlay admin-modal" id="adminModal">
+    <div class="modal-content">
+      <h3><i class="fas fa-crown"></i> Admin Panel</h3>
+      <div class="admin-form-container">
+        <div class="admin-form-title">➕ Tambah Data Baru</div>
+        <input type="hidden" id="adminEditIndex" value="-1">
+        <div class="admin-form-row">
+          <input type="text" id="adminInputCode" placeholder="Kode Referral">
+          <input type="email" id="adminInputEmail" placeholder="Email">
+        </div>
+        <div class="admin-form-actions">
+          <button id="adminSubmitBtn" onclick="adminSubmitForm()">Simpan</button>
+          <button id="adminCancelBtn" style="display:none;" onclick="adminResetForm()">Batal</button>
+          <button class="admin-mass-btn" onclick="openMassModal()"><i class="fas fa-users"></i> Tambah Massal</button>
+        </div>
+      </div>
+      <div style="max-height: 300px; overflow-y: auto;">
+        <table class="admin-table" id="adminTable">
+          <thead><tr><th>Email</th><th>Kode</th><th>Aksi</th></tr></thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top: 20px; display: flex; justify-content: space-between; gap: 12px;">
+        <button class="btn-close admin-delete-all" onclick="adminDeleteAll()" style="border-color: #b86b6b; color: #ffaaaa;">Hapus Semua</button>
+        <button class="btn-close" onclick="closeAdminModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="massModal">
+    <div class="modal-content" style="width: 450px;">
+      <h3><i class="fas fa-envelope-open-text"></i> Tambah Email Massal</h3>
+      <div class="form-group"><label>Kode Referral</label><input type="text" id="massCode" placeholder="Masukkan kode..."></div>
+      <div class="form-group"><label>Daftar Email</label><textarea id="massEmails" rows="4" placeholder="contoh1@gmail.com, contoh2@gmail.com&#10;contoh3@gmail.com" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid #b8964b; border-radius:16px; padding:12px; color:white;"></textarea></div>
+      <button class="btn-submit" onclick="processMassEmail()" style="width:100%; margin-bottom:10px;">Proses</button>
+      <div id="massResults" style="display:none;">
+        <div style="display:flex; justify-content:space-around; margin:10px 0;">
+          <span>Total: <span id="totalEmails">0</span></span>
+          <span style="color:#6b9a6b;">Baru: <span id="newEmails">0</span></span>
+          <span style="color:#b86b6b;">Duplikat: <span id="duplicateEmails">0</span></span>
+        </div>
+        <div class="email-mass-preview" id="emailPreview"></div>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <button class="btn-close" onclick="removeAllProcessedEmails()" style="background:#b86b6b; border-color:#b86b6b;">Hapus Semua</button>
+          <button class="btn-submit" onclick="saveMassEmails()" id="saveMassBtn">Simpan Email Baru</button>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:15px;"><button class="btn-close" onclick="closeMassModal()">Tutup</button></div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== FUNGSI LENGKAP ====================
+    let globalUsers = []; let isProcessing = false; let processedEmails = [];
+    
+    function updateCodeFromEmail() {
+      const email = document.getElementById('emailReferral')?.value.trim() || '';
+      const codeDisplay = document.getElementById('codeDisplay');
+      if (!email) { codeDisplay.value = ''; return; }
+      const localPart = email.split('@')[0];
+      const numbers = localPart.match(/\d/g);
+      if (numbers && numbers.length >= 5) codeDisplay.value = numbers.slice(0, 5).join('');
+      else if (numbers && numbers.length > 0) codeDisplay.value = numbers.slice(0, 4).join('');
+      else codeDisplay.value = (localPart || email).substring(0, 5).toUpperCase();
+    }
+
+    function generateAndSendNew() {
+      const email = document.getElementById('emailReferral')?.value.trim();
+      const nama = document.getElementById('namaReferral')?.value.trim();
+      const payment = document.getElementById('paymentMethod')?.value;
+      const target = document.getElementById('targetInvite')?.value.trim();
+      const code = document.getElementById('codeDisplay')?.value.trim();
+      if (!email || !nama || !target) { showNotification('Harap isi Email, Nama, dan Target'); return; }
+      const message = `*Hallo saya mendaftar sebagai Refferer Group 7777*\n\nNama : ${nama}\nEmail : ${email}\nPayment : ${payment}\nTarget : ${target}\nCode : ${code}\n\nThanks`;
+      window.open(`https://wa.me/+6287722495525?text=${encodeURIComponent(message)}`, '_blank');
+      if (typeof progressPoints !== 'undefined' && progressPoints >= 1 && progressPoints < 2) {
+        progressPoints = 2; updateProgress(); showNotification('Checkpoint 2: Form Refferal berhasil dikirim!');
+      }
+      closeModal();
+      document.getElementById('emailReferral').value = ''; document.getElementById('namaReferral').value = '';
+      document.getElementById('targetInvite').value = ''; document.getElementById('codeDisplay').value = '';
+    }
+
+    function openModal() { document.getElementById('modalOverlay').style.display = 'flex'; updateCodeFromEmail(); }
+    function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
+    function openRulesModal() { document.getElementById('rulesModal').style.display = 'flex'; }
+    function closeRulesModal() { document.getElementById('rulesModal').style.display = 'none'; }
+
+    const BIN_ID = '69ae82a0d0ea881f40ff509e';
+    const API_KEY = '$2a$10$5FPg7m1Qs/t4whphxNPecOPFqPoIheOnrXIoYAq42A4btApsw0vIm';
+    const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+    function showNotification(message) {
+      const existing = document.querySelector('.app-notification');
+      if (existing) existing.remove();
+      const notif = document.createElement('div'); notif.className = 'app-notification'; notif.textContent = message;
+      document.body.appendChild(notif); setTimeout(() => notif.remove(), 2500);
+    }
+
+    async function fetchData() {
+      if (isProcessing) return; isProcessing = true;
+      try {
+        const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': API_KEY } });
+        const result = await response.json();
+        if (result.record && Array.isArray(result.record.users)) globalUsers = result.record.users;
+        else if (Array.isArray(result.record)) globalUsers = result.record;
+        else globalUsers = [];
+      } catch (err) { globalUsers = []; } finally { isProcessing = false; renderAdminTable(); }
+    }
+
+    async function saveToCloud() {
+      renderAdminTable();
+      try {
+        await fetch(JSONBIN_URL, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY }, body: JSON.stringify({ users: globalUsers }) });
+        showNotification('Data berhasil disimpan!');
+      } catch (err) { showNotification('Gagal menyimpan: ' + err.message); }
+    }
+
+    function isEmailDuplicate(email, excludeIndex = -1) {
+      return globalUsers.some((user, idx) => idx !== excludeIndex && user.email?.toLowerCase() === email.toLowerCase());
+    }
+
+    function renderAdminTable() {
+      const tbody = document.getElementById('adminTableBody');
+      if (!tbody) return;
+      if (globalUsers.length === 0) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#8a7a5a;">Belum ada data</td></tr>'; return; }
+      tbody.innerHTML = '';
+      [...globalUsers].reverse().forEach((user, idx) => {
+        const originalIndex = globalUsers.length - 1 - idx;
+        tbody.innerHTML += `<tr><td>${user.email || '-'}</td><td>${user.referral_code || '-'}</td><td class="admin-actions"><button onclick="adminEdit(${originalIndex})">Edit</button><button onclick="adminDelete(${originalIndex})">Hapus</button></td></tr>`;
+      });
+    }
+
+    window.adminEdit = function(index) {
+      const user = globalUsers[index];
+      document.getElementById('adminInputCode').value = user.referral_code;
+      document.getElementById('adminInputEmail').value = user.email;
+      document.getElementById('adminEditIndex').value = index;
+      document.getElementById('adminFormTitle').innerText = '✏️ Edit Data';
+      document.getElementById('adminSubmitBtn').innerText = 'Update';
+      document.getElementById('adminCancelBtn').style.display = 'inline-block';
+    };
+
+    window.adminResetForm = function() {
+      document.getElementById('adminInputCode').value = '';
+      document.getElementById('adminInputEmail').value = '';
+      document.getElementById('adminEditIndex').value = '-1';
+      document.getElementById('adminFormTitle').innerText = '➕ Tambah Data Baru';
+      document.getElementById('adminSubmitBtn').innerText = 'Simpan';
+      document.getElementById('adminCancelBtn').style.display = 'none';
+    };
+
+    window.adminSubmitForm = function() {
+      const code = document.getElementById('adminInputCode').value.trim();
+      const email = document.getElementById('adminInputEmail').value.trim();
+      const editIndex = parseInt(document.getElementById('adminEditIndex').value);
+      if (!code || !email) { showNotification('Harap isi semua field'); return; }
+      if (isEmailDuplicate(email, editIndex)) { showNotification('Email sudah terdaftar!'); return; }
+      if (editIndex === -1) globalUsers.push({ email, referral_code: code });
+      else globalUsers[editIndex] = { email, referral_code: code };
+      saveToCloud();
+      adminResetForm();
+    };
+
+    window.adminDelete = async function(index) { if (!confirm('Yakin hapus?')) return; globalUsers.splice(index, 1); await saveToCloud(); };
+    window.adminDeleteAll = async function() { if (globalUsers.length === 0) return; if (prompt('Ketik "HAPUS" untuk konfirmasi:') !== 'HAPUS') return; globalUsers = []; await saveToCloud(); };
+
+    window.openMassModal = function() { document.getElementById('massModal').style.display = 'flex'; document.getElementById('massResults').style.display = 'none'; processedEmails = []; };
+    window.closeMassModal = function() { document.getElementById('massModal').style.display = 'none'; };
+
+    window.processMassEmail = function() {
+      const code = document.getElementById('massCode').value.trim();
+      const emailsInput = document.getElementById('massEmails').value.trim();
+      if (!code || !emailsInput) { showNotification('Lengkapi semua field'); return; }
+      const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+      const extracted = emailsInput.match(emailPattern) || [];
+      if (extracted.length === 0) { showNotification('Tidak ada email valid'); return; }
+      const normalized = extracted.map(e => e.toLowerCase().trim());
+      const unique = [...new Set(normalized)];
+      processedEmails = unique.map(email => ({ email, isDuplicate: isEmailDuplicate(email), status: isEmailDuplicate(email) ? 'duplicate' : 'new' }));
+      document.getElementById('totalEmails').textContent = processedEmails.length;
+      document.getElementById('newEmails').textContent = processedEmails.filter(e => !e.isDuplicate).length;
+      document.getElementById('duplicateEmails').textContent = processedEmails.filter(e => e.isDuplicate).length;
+      const preview = document.getElementById('emailPreview');
+      preview.innerHTML = '';
+      processedEmails.forEach((item, idx) => {
+        preview.innerHTML += `<div class="email-preview-item ${item.status}"><div><span>${item.email}</span> <span class="${item.isDuplicate ? 'badge-duplicate' : 'badge-new'}">${item.isDuplicate ? 'DUPLIKAT' : 'BARU'}</span></div><button class="btn-remove-email" onclick="removeProcessedEmail(${idx})">×</button></div>`;
+      });
+      document.getElementById('massResults').style.display = 'block';
+    };
+
+    window.removeProcessedEmail = function(index) { processedEmails.splice(index, 1); document.getElementById('totalEmails').textContent = processedEmails.length; document.getElementById('newEmails').textContent = processedEmails.filter(e => !e.isDuplicate).length; document.getElementById('duplicateEmails').textContent = processedEmails.filter(e => e.isDuplicate).length; const preview = document.getElementById('emailPreview'); preview.innerHTML = ''; processedEmails.forEach((item, idx) => { preview.innerHTML += `<div class="email-preview-item ${item.status}"><div><span>${item.email}</span> <span class="${item.isDuplicate ? 'badge-duplicate' : 'badge-new'}">${item.isDuplicate ? 'DUPLIKAT' : 'BARU'}</span></div><button class="btn-remove-email" onclick="removeProcessedEmail(${idx})">×</button></div>`; }); };
+    window.removeAllProcessedEmails = function() { processedEmails = []; document.getElementById('emailPreview').innerHTML = ''; document.getElementById('totalEmails').textContent = '0'; document.getElementById('newEmails').textContent = '0'; document.getElementById('duplicateEmails').textContent = '0'; };
+    window.saveMassEmails = async function() {
+      const code = document.getElementById('massCode').value.trim();
+      const newEmails = processedEmails.filter(e => !e.isDuplicate);
+      if (newEmails.length === 0) { showNotification('Tidak ada email baru'); return; }
+      if (!confirm(`Simpan ${newEmails.length} email dengan kode ${code}?`)) return;
+      newEmails.forEach(item => globalUsers.push({ email: item.email, referral_code: code }));
+      await saveToCloud();
+      closeMassModal();
+      adminResetForm();
+    };
+
+    function getTotalReward(count) { if (count >= 10) return count * 4; let bonus = (count === 2 || count === 5 || count === 8) ? 1 : 0; return count * 3 + bonus; }
+    function renderLeaderboard() {
+      const list = document.getElementById('leaderboardList'); if (!list) return;
+      if (globalUsers.length === 0) { list.innerHTML = '<li style="justify-content:center; padding:20px;">📭 Belum ada data</li>'; return; }
+      const groups = {};
+      globalUsers.forEach(u => { let c = u.referral_code || 'tanpa-kode'; if (!groups[c]) groups[c] = []; groups[c].push(u.email); });
+      const sorted = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+      list.innerHTML = '';
+      sorted.forEach(code => { let emails = groups[code], cnt = emails.length, usd = getTotalReward(cnt), idr = usd * 16000; let li = document.createElement('li'); li.innerHTML = `<span class="email"><strong>${code}</strong> (${cnt})</span><span class="reward">Rp ${idr.toLocaleString()}</span>`; li.querySelector('.reward').addEventListener('click', (e) => { e.stopPropagation(); showInviteDetail(code, emails); }); list.appendChild(li); });
+    }
+    function showInviteDetail(code, emails) {
+      let html = `<p style="color:#ffd966; margin-bottom:15px; text-align:center;"><strong>${code}</strong> — ${emails.length} undangan</p><ul class="invite-list">`;
+      emails.forEach((email, index) => { let nilai = 3; if (emails.length >= 10) nilai = 4; else if (index + 1 === 2 || index + 1 === 5 || index + 1 === 8) nilai = 4; html += `<li><span>${email}</span> <span class="email-reward">$${nilai}</span></li>`; });
+      html += '</ul>'; document.getElementById('inviteDetailContent').innerHTML = html; document.getElementById('inviteDetailModalOverlay').style.display = 'flex';
+    }
+    async function openLeaderboardModal() { await fetchData(); renderLeaderboard(); document.getElementById('leaderboardModalOverlay').style.display = 'flex'; }
+    function closeLeaderboardModal() { document.getElementById('leaderboardModalOverlay').style.display = 'none'; }
+    function closeInviteDetailModal() { document.getElementById('inviteDetailModalOverlay').style.display = 'none'; }
+    window.refreshLeaderboard = async function() { await fetchData(); renderLeaderboard(); showNotification('Leaderboard diperbarui!'); };
+
+    function openAdminPasswordModal() { document.getElementById('adminPasswordModal').style.display = 'flex'; }
+    function closeAdminPasswordModal() { document.getElementById('adminPasswordModal').style.display = 'none'; document.getElementById('adminPassword').value = ''; }
+    async function checkAdminPassword() { if (document.getElementById('adminPassword').value === 'Sinozhaki68') { closeAdminPasswordModal(); await fetchData(); document.getElementById('adminModal').style.display = 'flex'; } else showNotification('Password salah!'); }
+    function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+
+    function showRightPanel() { document.getElementById('left-panel').style.display='none'; document.getElementById('right-panel').style.display='flex'; document.getElementById('referral-panel').style.display='none'; resetProgress(); }
+    function showLeftPanel() { document.getElementById('right-panel').style.display='none'; document.getElementById('referral-panel').style.display='none'; document.getElementById('left-panel').style.display='flex'; endWalkthrough(); }
+    function showReferralPanel() { document.getElementById('left-panel').style.display='none'; document.getElementById('right-panel').style.display='none'; document.getElementById('referral-panel').style.display='flex'; endWalkthrough(); }
+
+    let tutorialActive = false, tutorialStep = 0;
+    const tutorialSteps = [
+      { elementId: 'btnNewAcc', text: 'Klik untuk yang baru memulai sewa Linkedln' },
+      { elementId: 'btnUnrestrict', text: 'Klik khusus untuk akun Unrestrict.' },
+      { elementId: 'btnLaporan', text: 'Klik setelah berhasil setor akun ke Client' },
+      { elementId: null, text: '📅 cek group untuk memantau jadwal pengiriman Account' }
+    ];
+    function restartTutorial() { if(tutorialActive) endWalkthrough(); showRightPanel(); setTimeout(startWalkthrough,100); }
+    function startWalkthrough() { tutorialActive=true; tutorialStep=0; document.getElementById('walkthroughOverlay').style.display='block'; updateTutorialCounter(); showWalkthroughStep(0); }
+    function endWalkthrough() { tutorialActive=false; document.getElementById('walkthroughOverlay').style.display='none'; document.getElementById('walkthroughTooltip').style.display='none'; updateTutorialCounter(); localStorage.setItem('tutorialDone','true'); }
+    function showWalkthroughStep(step) {
+      if(!tutorialActive||step>=4){ endWalkthrough(); showNotification('Tutorial selesai!'); return; }
+      tutorialStep=step; let d=tutorialSteps[step]; let tooltip=document.getElementById('walkthroughTooltip'); let hole=document.getElementById('walkthroughHole');
+      if(d.elementId){
+        let el=document.getElementById(d.elementId); if(!el)return;
+        let r=el.getBoundingClientRect(); let p=15;
+        hole.style.width=(r.width+p*2)+'px'; hole.style.height=(r.height+p*2)+'px'; hole.style.left=(r.left-p)+'px'; hole.style.top=(r.top-p)+'px';
+        let top=r.top-100; let left=r.left+r.width/2-140;
+        if(top<20) top=r.bottom+30; if(left<10) left=10; if(left+280>window.innerWidth) left=window.innerWidth-290;
+        tooltip.style.top=top+'px'; tooltip.style.left=left+'px'; tooltip.style.transform='none';
+      } else { hole.style.width='0'; tooltip.style.top='50%'; tooltip.style.left='50%'; tooltip.style.transform='translate(-50%,-50%)'; }
+      document.getElementById('walkthroughInstruction').innerHTML=d.text; tooltip.style.display='flex'; updateTutorialCounter();
+    }
+    function nextWalkthrough() { showWalkthroughStep(tutorialStep+1); }
+    document.getElementById('walkthroughNext')?.addEventListener('click', nextWalkthrough);
+    document.getElementById('walkthroughSkip')?.addEventListener('click', ()=>{ endWalkthrough(); showNotification('Tutorial dilewati'); });
+    function updateTutorialCounter() { let c=document.getElementById('tutorialCounter'); if(c) c.style.display=tutorialActive?'block':'none'; if(tutorialActive) c.textContent=(tutorialStep+1)+'/4'; }
+    function checkFirstTimeTutorial() { if(!localStorage.getItem('tutorialDone')) setTimeout(()=>{ showRightPanel(); setTimeout(startWalkthrough,500); },1000); }
+    function showWarningTooltip() { /* tidak diimplementasi */ }
+    function closeWarningTooltip() { /* tidak diimplementasi */ }
+
+    let progressPoints = 0;
+    function resetProgress() { progressPoints=0; updateProgress(); }
+    function updateProgress() {
+      document.getElementById('rune1')?.classList.toggle('completed', progressPoints>=1);
+      document.getElementById('rune2')?.classList.toggle('completed', progressPoints>=2);
+      document.getElementById('rune3')?.classList.toggle('completed', progressPoints>=3);
+      let f=document.getElementById('progressFill'); if(f) f.style.width=(progressPoints/3)*100+'%';
+    }
+
+    function openFormModal(t) { if (tutorialActive) return; if (progressPoints < 1) { progressPoints = 1; updateProgress(); } if (t === 'newacc') document.getElementById('formModalNewAcc').style.display = 'flex'; else document.getElementById('formModalUnrestrict').style.display = 'flex'; }
+    function closeFormModals() { document.getElementById('formModalNewAcc').style.display = 'none'; document.getElementById('formModalUnrestrict').style.display = 'none'; }
+    function submitForm(type) {
+      let email, password, koneksi, age;
+      if (type === 'newacc') { email = document.getElementById('newacc-email').value.trim(); password = document.getElementById('newacc-password').value.trim(); koneksi = document.getElementById('newacc-koneksi').value.trim(); age = document.getElementById('newacc-age').value.trim(); }
+      else { email = document.getElementById('unrestrict-email').value.trim(); password = document.getElementById('unrestrict-password').value.trim(); koneksi = document.getElementById('unrestrict-koneksi').value.trim(); age = document.getElementById('unrestrict-age').value.trim(); }
+      if (!email || !password || !koneksi || !age) { showNotification('Harap isi semua field'); return; }
+      let title = type === 'newacc' ? 'New account Request : 7777' : 'Unrestrict Request : 7777 ';
+      let message = `*${title}*\n\nEmail : ${email}\nPassword : ${password}\nConnection : ${koneksi}\nAge : ${age}\nGroup : 7777\n\nThanks boss.`;
+      window.open(`https://wa.me/+13123717165?text=${encodeURIComponent(message)}`, '_blank');
+      if (progressPoints === 1) { progressPoints = 2; updateProgress(); showNotification('Checkpoint 2: Form berhasil dikirim!'); }
+      closeFormModals();
+      if (tutorialActive && ((type === 'newacc' && tutorialStep === 0) || (type === 'unrestrict' && tutorialStep === 1))) nextWalkthrough();
+      if (type === 'newacc') { document.getElementById('newacc-email').value = ''; document.getElementById('newacc-password').value = ''; document.getElementById('newacc-koneksi').value = ''; document.getElementById('newacc-age').value = ''; }
+      else { document.getElementById('unrestrict-email').value = ''; document.getElementById('unrestrict-password').value = ''; document.getElementById('unrestrict-koneksi').value = ''; document.getElementById('unrestrict-age').value = ''; }
+    }
+    function laporanSewaClick() {
+      if (tutorialActive) return;
+      if (progressPoints >= 2) {
+        if (progressPoints < 3) { progressPoints = 3; updateProgress(); showNotification('Checkpoint 3: Laporan Sewa berhasil!'); window.open('https://laporansewa7.vercel.app/', '_blank'); }
+        else showNotification('Anda sudah mencapai checkpoint maksimal');
+      } else showNotification('Selesaikan checkpoint 1 dan 2 terlebih dahulu 🎁');
+      if (tutorialActive && tutorialStep === 2) nextWalkthrough();
+    }
+
+    window.addEventListener('load', ()=>{ fetchData(); checkFirstTimeTutorial(); });
+    window.onclick = (e) => { if(e.target.classList.contains('modal-overlay')) e.target.style.display='none'; };
+  </script>
+</body>
+</html>
