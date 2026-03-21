@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dota 2 · referral Ramadhan – Premium Pirate Edition</title>
-  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ========== RESET & GLOBAL ========== */
@@ -24,6 +22,16 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+    }
+
+    /* MATIKAN FITUR DOWNLOAD/DRAG PADA SEMUA GAMBAR PENGAMANAN GANDA */
+    img {
+      user-select: none !important;
+      -webkit-user-drag: none !important;
+      -khtml-user-drag: none !important;
+      -moz-user-drag: none !important;
+      -o-user-drag: none !important;
+      pointer-events: none !important; /* Mencegah interaksi langsung ke gambar (klik kanan ditahan) */
     }
 
     /* PANEL UTAMA */
@@ -164,18 +172,108 @@
     .app-notification { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); backdrop-filter:blur(5px); border:1px solid #3b82f6; border-radius:30px; padding:12px 24px; color:white; z-index:40000; animation:slideDown 2s forwards; }
     @keyframes slideDown { 0%{opacity:0; transform:translateX(-50%) translateY(-20px);} 15%{opacity:1; transform:translateX(-50%) translateY(0);} 85%{opacity:1; transform:translateX(-50%) translateY(0);} 100%{opacity:0; transform:translateX(-50%) translateY(-20px);} }
 
-    /* ===== ICON LILIN ===== */
+    /* ===== ICON LILIN & SPARKS ORGANIK MULTIPLE (SMOOTH) ===== */
     .candle-icon {
       position: absolute;
       cursor: pointer;
       z-index: 50;
       transition: all 0.3s ease;
-      filter: drop-shadow(0 0 5px #ffaa33) drop-shadow(0 0 8px #ff8833);
+      filter: drop-shadow(0 0 2px #ffaa33) drop-shadow(0 0 4px #ff8833);
       animation: candleGlow 1.5s infinite alternate;
     }
     .candle-icon img { width: 100%; height: 100%; object-fit: contain; }
-    @keyframes candleGlow { 0% { filter: drop-shadow(0 0 2px #ffaa33) drop-shadow(0 0 4px #ff8833); opacity: 0.85; } 100% { filter: drop-shadow(0 0 8px #ffcc44) drop-shadow(0 0 12px #ffaa33); opacity: 1; } }
-    .candle-icon:hover { transform: scale(1.05); filter: drop-shadow(0 0 12px #ffcc44) drop-shadow(0 0 20px #ffaa33); }
+    @keyframes candleGlow { 
+      0% { filter: drop-shadow(0 0 1px #ffaa33) drop-shadow(0 0 2px #ff8833); opacity: 0.85; } 
+      100% { filter: drop-shadow(0 0 4px #ffcc44) drop-shadow(0 0 6px #ffaa33); opacity: 1; } 
+    }
+    .candle-icon:hover { transform: scale(1.05); filter: drop-shadow(0 0 6px #ffcc44) drop-shadow(0 0 10px #ffaa33); }
+    
+    /* Percikan api dari Lilin - Memakai pseudo element transparan dengan multiple box-shadow */
+    .candle-icon::before, .candle-icon::after {
+      content: '';
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      width: 4px; /* Ukuran dasar percikan */
+      height: 4px; 
+      background: transparent; 
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10;
+    }
+    
+    .candle-icon::before {
+      animation: sparkExplodeSmooth1 2.5s infinite linear;
+    }
+    .candle-icon::after {
+      animation: sparkExplodeSmooth2 3s infinite linear 1.2s;
+    }
+
+    /* Animasi pergerakan percikan api yang lebih halus (smooth) */
+    @keyframes sparkExplodeSmooth1 {
+      0% {
+        box-shadow:
+          0px 0px 4px 1px #ffcc00,
+          -5px 5px 3px 1px #ff6600,
+          5px 10px 4px 1px #ff9900,
+          -8px 8px 3px 1px #ff3300,
+          8px -5px 4px 1px #ffcc00;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        box-shadow:
+          -5px -40px 4px 1px rgba(255, 204, 0, 0.8),
+          -15px -30px 3px 1px rgba(255, 102, 0, 0.8),
+          15px -50px 4px 1px rgba(255, 153, 0, 0.8),
+          -20px -35px 3px 1px rgba(255, 51, 0, 0.8),
+          20px -25px 4px 1px rgba(255, 204, 0, 0.8);
+        opacity: 0.8;
+      }
+      100% {
+        box-shadow:
+          -10px -90px 4px 1px rgba(255, 204, 0, 0),
+          -25px -70px 3px 1px rgba(255, 102, 0, 0),
+          25px -110px 4px 1px rgba(255, 153, 0, 0),
+          -35px -80px 3px 1px rgba(255, 51, 0, 0),
+          30px -60px 4px 1px rgba(255, 204, 0, 0);
+        opacity: 0;
+        transform: translateY(-20px) scale(0.5); /* Sedikit tambahan pergerakan dari elemen utamanya */
+      }
+    }
+
+    @keyframes sparkExplodeSmooth2 {
+      0% {
+        box-shadow:
+          2px -5px 3px 1px #ff9900,
+          10px 5px 4px 1px #ffcc00,
+          -10px 10px 3px 1px #ff6600,
+          15px 8px 4px 1px #ff3300,
+          -5px 0px 3px 1px #ffcc00;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        box-shadow:
+          8px -45px 3px 1px rgba(255, 153, 0, 0.8),
+          20px -35px 4px 1px rgba(255, 204, 0, 0.8),
+          -20px -50px 3px 1px rgba(255, 102, 0, 0.8),
+          25px -30px 4px 1px rgba(255, 51, 0, 0.8),
+          -10px -40px 3px 1px rgba(255, 204, 0, 0.8);
+        opacity: 0.8;
+      }
+      100% {
+        box-shadow:
+          15px -100px 3px 1px rgba(255, 153, 0, 0),
+          35px -80px 4px 1px rgba(255, 204, 0, 0),
+          -30px -120px 3px 1px rgba(255, 102, 0, 0),
+          40px -70px 4px 1px rgba(255, 51, 0, 0),
+          -20px -90px 3px 1px rgba(255, 204, 0, 0);
+        opacity: 0;
+        transform: translateY(-20px) scale(0.5);
+      }
+    }
+
     .candle-landing { position: absolute; bottom: 570px; right: 60px; width: 130px; height: 150px; z-index: 60; }
     .candle-right-panel { position: absolute; right: -15px; bottom: -10px; width: 70px; height: 70px; z-index: 15; }
     
@@ -189,11 +287,51 @@
     .referral-title-block { flex: 1; }
     .referral-title-main { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #e0cba0; line-height: 1.1; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .referral-subtitle { color: #d4d4d4; font-size: 0.8rem; margin-top: 3px; font-weight: 400; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-    .harta-emblem { width: 88px; height: 88px; cursor: pointer; transition: transform 0.2s; background: rgba(0,0,0,0.2); border-radius: 50%; padding: 12px; border: 1px solid rgba(180, 150, 70, 0.5); animation: heartbeat 1.2s ease-in-out infinite; }
+    
+    /* Harta Emblem & Alert */
+    .harta-emblem { 
+      position: relative; 
+      width: 105px; /* Ikon Harta diperbesar */
+      height: 105px; 
+      cursor: pointer; 
+      transition: transform 0.2s; 
+      background: rgba(0,0,0,0.5); /* Overlay lebih gelap */
+      border-radius: 50%; 
+      padding: 12px; 
+      border: 1px solid rgba(180, 150, 70, 0.5); 
+      animation: heartbeat 1.2s ease-in-out infinite; 
+    }
     @keyframes heartbeat { 0% { transform: scale(1); } 25% { transform: scale(1.1); } 35% { transform: scale(1.05); } 45% { transform: scale(1.1); } 55% { transform: scale(1); } 100% { transform: scale(1); } }
     .harta-emblem:hover { transform: scale(1.05); animation: none; }
     .harta-emblem img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 8px rgba(180, 150, 70, 0.6)); }
     
+    .harta-alert { 
+      position: absolute; 
+      top: 0px; 
+      right: 0px; 
+      background: #b91c1c; /* Warna background sedikit lebih gelap agar tegas */
+      color: white; 
+      font-size: 0.95rem; /* Font tanda seru dipertajam */
+      font-weight: 900; 
+      width: 18px; /* Lingkaran diperkecil */
+      height: 18px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border-radius: 50%; 
+      border: 2px solid #b8964b; 
+      box-shadow: 0 0 10px rgba(180, 0, 0, 0.9); /* Overlay pulse lebih gelap */
+      text-shadow: 0px 1px 1px black; /* Tanda pentung lebih jelas */
+      animation: pulseAlert 1.5s infinite; 
+      z-index: 10; 
+      pointer-events: none; 
+    }
+    @keyframes pulseAlert { 
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(180, 0, 0, 0.8); } 
+      70% { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(180, 0, 0, 0); } 
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(180, 0, 0, 0); } 
+    }
+
     .voyage-card { background: rgba(16, 18, 24, 0.7); backdrop-filter: blur(4px); border-radius: 26px; padding: 16px 16px; margin-bottom: 18px; border: 1px solid rgba(180, 150, 70, 0.2); position: relative; }
     .voyage-label { display: flex; align-items: center; gap: 8px; color: #c4b28c; font-size: 0.9rem; font-weight: 600; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
     .route-container { position: relative; margin-bottom: 14px; }
@@ -228,7 +366,7 @@
     .footer-note { color: #cccccc; font-size: 0.8rem; text-align: center; margin-top: 14px; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
     .footer-note i { color: #b8964b; margin: 0 4px; }
 
-    /* ===== RULES MODAL - WARNA FONT DIPERBAIKI (SEMUA TERANG) ===== */
+    /* ===== RULES MODAL ===== */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 10000; transition: all 0.3s ease; }
     .rules-container { max-width: 440px; width: 100%; max-height: 85vh; overflow-y: auto; background-image: url('background.png'); background-size: cover; background-position: center; border-radius: 32px; padding: 24px 20px 28px 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); }
     .rules-title { text-align: center; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: #ffd966; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); border-radius: 40px; padding: 8px 16px; }
@@ -249,7 +387,7 @@
     .close-btn { background: transparent; border: 2px solid #d4af37; border-radius: 40px; padding: 10px 20px; color: #ffd966; font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 16px; width: 100%; background: rgba(0, 0, 0, 0.5); }
     .close-btn:hover { background: #d4af37; color: #1a1a0a; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
 
-    /* ===== ADMIN PANEL (PIRATE THEME FULL CODE) ===== */
+    /* ===== ADMIN PANEL ===== */
     .admin-modal .modal-content {
       background-image: url('background.png');
       background-size: cover;
@@ -461,7 +599,6 @@
   </style>
 </head>
 <body>
-  <!-- WALKTHROUGH COUNTER & ELEMEN -->
   <div class="tutorial-counter" id="tutorialCounter" style="display: none;">0/4</div>
   <div class="walkthrough-overlay" id="walkthroughOverlay">
     <div class="walkthrough-hole" id="walkthroughHole"></div>
@@ -474,7 +611,6 @@
     </div>
   </div>
 
-  <!-- PANEL UTAMA (KIRI) -->
   <div class="phone-panel" id="left-panel">
     <div class="panel-content">
       <div class="banner-container">
@@ -493,14 +629,13 @@
         <div class="floating-nav-bar">
           <div class="nav-left"><div class="nav-icon rules-nav-item" onclick="openRulesModal()"><i class="fas fa-gavel"></i><span>Rules</span></div><div class="nav-icon" onclick="showReferralPanel()"><i class="fas fa-gift"></i><span>Refferal</span></div></div>
           <div class="nav-right"><div class="nav-icon" onclick="window.open('https://checkdata7.vercel.app/', '_blank')"><i class="fas fa-credit-card"></i><span>Payment</span></div><div class="nav-icon" onclick="showNotification('Pantau Grup Utama❗')"><i class="fas fa-info-circle"></i><span>Info</span></div></div>
-          <div class="center-home-button" onclick="showRightPanel()"><img src="Jangkar.png" alt="Home"></div>
+          <div class="center-home-button" onclick="showRightPanel()"><img src="Jangkar.png" alt="Home" draggable="false" oncontextmenu="return false;"></div>
         </div>
       </div>
     </div>
-    <div class="candle-icon candle-landing"><img src="lilin.png" alt="lilin"></div>
+    <div class="candle-icon candle-landing"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div>
   </div>
 
-  <!-- PANEL KANAN (HERO SELECTION) -->
   <div class="phone-panel" id="right-panel">
     <div class="panel-content">
       <button class="back-btn" onclick="showLeftPanel()"><i class="fas fa-arrow-left"></i> Kembali</button>
@@ -514,31 +649,37 @@
       <div class="sewa-info-text"><i class="fas fa-info-circle"></i> setelah berhasil kirim form & account di approve</div>
       <div class="btn-laporan-wrapper" style="position: relative;">
         <button class="btn-laporan-icon btn-with-tooltip" id="btnLaporan" onclick="laporanSewaClick()"><i class="fas fa-file-alt"></i><span class="tooltip-text">Laporan Sewa</span></button>
-        <div class="candle-icon candle-right-panel"><img src="lilin.png" alt="lilin"></div>
+        <div class="candle-icon candle-right-panel"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div>
       </div>
     </div>
   </div>
 
-  <!-- FORM MODALS -->
   <div class="form-modal-overlay" id="formModalNewAcc"><div class="form-modal-content"><div class="modal-close-btn" onclick="closeFormModals()"><i class="fas fa-times"></i></div><h3>NEW ACCOUNT</h3><div class="form-group"><label>Email :</label><input type="email" id="newacc-email" placeholder="Masukkan email"></div><div class="form-group"><label>Password :</label><input type="password" id="newacc-password" placeholder="Masukkan password"></div><div class="form-group"><label>Koneksi :</label><input type="text" id="newacc-koneksi" placeholder="Jumlah koneksi"></div><div class="form-group"><label>Umur Akun :</label><input type="number" id="newacc-age" placeholder="Contoh 2024"></div><div class="form-group"><label>Group :</label><input type="text" id="newacc-group" value="7777" readonly></div><button class="btn-form-submit btn-with-tooltip" onclick="submitForm('newacc')"><i class="fas fa-paper-plane"></i></button></div></div>
   <div class="form-modal-overlay" id="formModalUnrestrict"><div class="form-modal-content"><div class="modal-close-btn" onclick="closeFormModals()"><i class="fas fa-times"></i></div><h3>UNRESTRICT</h3><div class="form-group"><label>Email :</label><input type="email" id="unrestrict-email" placeholder="Masukkan email"></div><div class="form-group"><label>Password :</label><input type="password" id="unrestrict-password" placeholder="Masukkan password"></div><div class="form-group"><label>Koneksi :</label><input type="text" id="unrestrict-koneksi" placeholder="Jumlah koneksi"></div><div class="form-group"><label>Umur Akun :</label><input type="number" id="unrestrict-age" placeholder="Contoh 2024"></div><div class="form-group"><label>Group :</label><input type="text" id="unrestrict-group" value="7777" readonly></div><button class="btn-form-submit btn-with-tooltip" onclick="submitForm('unrestrict')"><i class="fas fa-paper-plane"></i></button></div></div>
 
-  <!-- PANEL REFERRAL -->
   <div class="phone-panel" id="referral-panel">
     <div class="panel-content">
       <div class="back-btn-pirate" onclick="showLeftPanel()"><i class="fas fa-arrow-left"></i> Back</div>
-      <div class="referral-header"><div class="referral-title-block"><div class="referral-title-main">Treasure Route</div><div class="referral-subtitle">Invite allies and claim your bounty</div></div><div class="harta-emblem" onclick="openLeaderboardModal()"><img src="Harta.png" alt="Harta"></div></div>
-      <div class="voyage-card"><div class="voyage-label"><i class="fas fa-ship"></i> Voyage Progress</div><div class="route-container"><div class="route-nodes"><div class="node"><div class="node-marker"><i class="fas fa-ship"></i></div><span class="node-label">Start</span></div><div class="node"><div class="node-marker"><i class="fas fa-map"></i></div><span class="node-label">2–4</span></div><div class="node"><div class="node-marker"><i class="fas fa-anchor"></i></div><span class="node-label">5–7</span></div><div class="node"><div class="node-marker harta-marker"><img src="Harta.png" alt="Harta"></div><span class="node-label">8–10</span></div></div><div class="route-line-bg"><div class="route-line-fill" style="width:8%"></div></div></div></div>
-      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-left"><img src="lilin.png" alt="lilin"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 1 <span class="stage-sub">· First Catch</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">2 Referral</span></div><span class="reward-value">Rp 112.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">3 Referral</span></div><span class="reward-value">Rp 160.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">4 Referral</span></div><span class="reward-value">Rp 208.000</span></div></div>
+      <div class="referral-header">
+        <div class="referral-title-block">
+          <div class="referral-title-main">Treasure Route</div>
+          <div class="referral-subtitle">Invite allies and claim your bounty</div>
+        </div>
+        <div class="harta-emblem" onclick="openLeaderboardModal()">
+          <img src="Harta.png" alt="Harta" draggable="false" oncontextmenu="return false;">
+          <div class="harta-alert">❗</div>
+        </div>
+      </div>
+      <div class="voyage-card"><div class="voyage-label"><i class="fas fa-ship"></i> Voyage Progress</div><div class="route-container"><div class="route-nodes"><div class="node"><div class="node-marker"><i class="fas fa-ship"></i></div><span class="node-label">Start</span></div><div class="node"><div class="node-marker"><i class="fas fa-map"></i></div><span class="node-label">2–4</span></div><div class="node"><div class="node-marker"><i class="fas fa-anchor"></i></div><span class="node-label">5–7</span></div><div class="node"><div class="node-marker harta-marker"><img src="Harta.png" alt="Harta" draggable="false" oncontextmenu="return false;"></div><span class="node-label">8–10</span></div></div><div class="route-line-bg"><div class="route-line-fill" style="width:8%"></div></div></div></div>
+      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-left"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 1 <span class="stage-sub">· First Catch</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">2 Referral</span></div><span class="reward-value">Rp 112.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">3 Referral</span></div><span class="reward-value">Rp 160.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">4 Referral</span></div><span class="reward-value">Rp 208.000</span></div></div>
       <div class="stage-card"><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 2 <span class="stage-sub">· Deep Waters</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">5 Referral</span></div><span class="reward-value">Rp 272.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">6 Referral</span></div><span class="reward-value">Rp 320.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">7 Referral</span></div><span class="reward-value">Rp 368.000</span></div></div>
-      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-right"><img src="lilin.png" alt="lilin"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 3 <span class="stage-sub">· Captain’s Bounty</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">8 Referral</span></div><span class="reward-value">Rp 432.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">9 Referral</span></div><span class="reward-value">Rp 480.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">10 Referral</span></div><span class="reward-value">Rp 640.000</span></div></div>
+      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-right"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 3 <span class="stage-sub">· Captain’s Bounty</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">8 Referral</span></div><span class="reward-value">Rp 432.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">9 Referral</span></div><span class="reward-value">Rp 480.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">10 Referral</span></div><span class="reward-value">Rp 640.000</span></div></div>
       <div class="info-box-premium"><div class="info-row"><i class="fas fa-coins"></i> <span>1 Reff = Rp 48.000 · 10+ Reff = Rp 64.000/undangan</span></div><div class="info-row"><i class="fas fa-clock"></i> <span>Bonus 1x, cair minggu yang sama, reset tiap minggu</span></div><div class="info-row"><i class="fas fa-infinity"></i> <span>Tidak ada batas maksimal undangan</span></div></div>
       <button class="btn-pirate-premium" onclick="openModal()"><i class="fas fa-qrcode"></i> Buat Kode Refferal</button>
       <div class="footer-note"><i class="fas fa-skull-crossbones"></i> all stages · claim your bounty <i class="fas fa-skull-crossbones"></i></div>
     </div>
   </div>
 
-  <!-- MODAL RULES (WARNA FONT DIPERBAIKI) -->
   <div class="modal-overlay" id="rulesModal">
     <div class="rules-container">
       <div class="rules-title"><i class="fas fa-skull-crossbones"></i> PIRATE'S CODE <i class="fas fa-compass"></i></div>
@@ -550,7 +691,6 @@
     </div>
   </div>
 
-  <!-- MODAL BUAT KODE -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-content" style="width: 400px;">
       <h3><i class="fas fa-scroll"></i> Create Refferal</h3>
@@ -558,12 +698,11 @@
       <div class="form-group"><label>Nama :</label><input type="text" id="namaReferral" placeholder="Masukkan nama Anda"></div>
       <div class="form-group"><label>Payment Method :</label><select id="paymentMethod"><option>Seabank</option><option>Dana</option><option>Ovo</option><option>Gopay</option><option>BRI</option><option>BCA</option><option>Mandiri</option><option>Bsi</option></select></div>
       <div class="form-group"><label>Target Invite :</label><input type="number" id="targetInvite" placeholder="Contoh: 10"></div>
-      <div class="form-group"><label>Code Refferal :</label><input type="text" id="codeDisplay" readonly style="color:#e0cba0;"></div>
+      <div class="form-group"><label>Code Refferal :</label><input type="text" id="codeDisplay" placeholder="Custom / Auto 5 Angka" style="color:#e0cba0;"></div>
       <div class="modal-actions"><button class="btn-submit" onclick="generateAndSendNew()">Buat & Kirim</button><button class="btn-close" onclick="closeModal()">Tutup</button></div>
     </div>
   </div>
 
-  <!-- MODAL LEADERBOARD -->
   <div class="modal-overlay leaderboard-modal" id="leaderboardModalOverlay">
     <div class="modal-content">
       <h3><i class="fas fa-trophy"></i> Leaderboard Refferal</h3>
@@ -573,7 +712,6 @@
     </div>
   </div>
 
-  <!-- MODAL DETAIL UNDANGAN -->
   <div class="modal-overlay leaderboard-modal" id="inviteDetailModalOverlay">
     <div class="modal-content">
       <h3><i class="fas fa-envelope"></i> Detail Undangan</h3>
@@ -582,7 +720,6 @@
     </div>
   </div>
 
-  <!-- MODAL PASSWORD ADMIN & ADMIN PANEL -->
   <div class="modal-overlay password-modal" id="adminPasswordModal">
     <div class="modal-content"><h3><i class="fas fa-lock"></i> Admin Access</h3><input type="password" id="adminPassword" placeholder="Password"><div class="modal-actions"><button class="btn-submit" onclick="checkAdminPassword()">Masuk</button><button class="btn-close" onclick="closeAdminPasswordModal()">Batal</button></div></div>
   </div>
@@ -642,15 +779,30 @@
     // ==================== FUNGSI LENGKAP ====================
     let globalUsers = []; let isProcessing = false; let processedEmails = [];
     
+    // UPDATE: Selalu menghasilkan 5 ANGKA dari email (walau tidak ada angka di email)
     function updateCodeFromEmail() {
       const email = document.getElementById('emailReferral')?.value.trim() || '';
       const codeDisplay = document.getElementById('codeDisplay');
+      
       if (!email) { codeDisplay.value = ''; return; }
-      const localPart = email.split('@')[0];
-      const numbers = localPart.match(/\d/g);
-      if (numbers && numbers.length >= 5) codeDisplay.value = numbers.slice(0, 5).join('');
-      else if (numbers && numbers.length > 0) codeDisplay.value = numbers.slice(0, 4).join('');
-      else codeDisplay.value = (localPart || email).substring(0, 5).toUpperCase();
+      
+      // Ambil semua angka asli dari email (jika ada)
+      let numbers = email.replace(/\D/g, '');
+      
+      // Jika angka asli kurang dari 5 digit, kita konversi huruf di email jadi angka agar mencapai 5 digit
+      if (numbers.length < 5) {
+        let fallback = "";
+        for (let i = 0; i < email.length; i++) {
+          fallback += email.charCodeAt(i).toString();
+        }
+        numbers += fallback; // Gabungkan angka asli dengan hasil konversi
+      }
+      
+      // Keamanan ekstra jika masih kurang (sangat jarang terjadi)
+      numbers += "012345";
+      
+      // Pastikan output ke input selalu di-potong TEPAT 5 ANGKA
+      codeDisplay.value = numbers.substring(0, 5);
     }
 
     function generateAndSendNew() {
@@ -659,7 +811,7 @@
       const payment = document.getElementById('paymentMethod')?.value;
       const target = document.getElementById('targetInvite')?.value.trim();
       const code = document.getElementById('codeDisplay')?.value.trim();
-      if (!email || !nama || !target) { showNotification('Harap isi Email, Nama, dan Target'); return; }
+      if (!email || !nama || !target || !code) { showNotification('Harap isi Email, Nama, Target, dan Kode'); return; }
       const message = `*Hallo saya mendaftar sebagai Refferer Group 7777*\n\nNama : ${nama}\nEmail : ${email}\nPayment : ${payment}\nTarget : ${target}\nCode : ${code}\n\nThanks`;
       window.open(`https://wa.me/+6287722495525?text=${encodeURIComponent(message)}`, '_blank');
       if (typeof progressPoints !== 'undefined' && progressPoints >= 1 && progressPoints < 2) {
