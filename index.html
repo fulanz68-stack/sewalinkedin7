@@ -22,6 +22,30 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* BUBBLE ANIMATION - GELEMBUNG PARTICEL */
+    .bubble {
+      position: fixed;
+      bottom: -50px;
+      background: rgba(100, 180, 255, 0.25);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: riseUp linear forwards;
+      box-shadow: 0 0 8px rgba(100, 180, 255, 0.4);
+    }
+    @keyframes riseUp {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+      }
     }
 
     /* MATIKAN FITUR DOWNLOAD/DRAG PADA SEMUA GAMBAR PENGAMANAN GANDA */
@@ -51,6 +75,7 @@
       position: relative;
       overflow: visible;
       transition: all 0.3s ease;
+      z-index: 10;
     }
 
     .phone-panel::before { display: none; }
@@ -100,7 +125,30 @@
     .nav-icon:hover { color: #fff; transform: translateY(-2px); }
     .nav-icon.rules-nav-item i { color: #ff8c00 !important; animation: pulse 1.5s infinite; filter: drop-shadow(0 0 8px #ff8c00); }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-    .nav-left, .nav-right { display: flex; gap: 22px; align-items: center; }
+    .nav-left, .nav-right { display: flex; gap: 22px; align-items: center; position: relative; }
+    /* Ikon tambahan Pelampung & Bintang di nav */
+    .extra-icon-left {
+      position: absolute;
+      left: -70px;
+      bottom: -100px;
+      width: 94px;
+      height: 94px;
+      cursor: pointer;
+      z-index: 110;
+      transition: transform 0.2s;
+    }
+    .extra-icon-left img, .extra-icon-right img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); pointer-events: auto; }
+    .extra-icon-right {
+      position: absolute;
+      right: -50px;
+      bottom: -75px;
+      width: 54px;
+      height: 56px;
+      cursor: pointer;
+      z-index: 110;
+      transition: transform 0.2s;
+    }
+    .extra-icon-left:hover, .extra-icon-right:hover { transform: scale(1.1); }
     .center-home-button { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 75px; height: 75px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 101; background: #000000; box-shadow: 0 0 0 3px rgba(0,0,0,0.3), 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3); overflow: visible; }
     .center-home-button img { width: 210%; height: 210%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6)); pointer-events: none; animation: rotateInPlace 12s linear infinite; transform-origin: center center; }
     @keyframes rotateInPlace { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
@@ -145,6 +193,21 @@
     .btn-with-tooltip { position: relative; }
     .tooltip-text { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fbbf24; padding: 4px 8px; border-radius: 20px; font-size: 0.6rem; font-weight: 600; white-space: nowrap; border: 1px solid #fbbf24; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
     .btn-with-tooltip:hover .tooltip-text { opacity: 1; }
+    
+    /* Bintang Pojok Kiri Bawah (Home) */
+    .star-home-icon {
+      position: absolute;
+      left: -30px;
+      bottom: -10px;
+      width: 70px;
+      height: 70px;
+      z-index: 25;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .star-home-icon img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); }
+    .star-home-icon:hover { transform: scale(1.1); }
 
     /* FORM MODAL */
     .form-modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index:20000; }
@@ -187,95 +250,24 @@
       100% { filter: drop-shadow(0 0 4px #ffcc44) drop-shadow(0 0 6px #ffaa33); opacity: 1; } 
     }
     .candle-icon:hover { transform: scale(1.05); filter: drop-shadow(0 0 6px #ffcc44) drop-shadow(0 0 10px #ffaa33); }
-    
-    /* Percikan api dari Lilin - Memakai pseudo element transparan dengan multiple box-shadow */
     .candle-icon::before, .candle-icon::after {
       content: '';
       position: absolute;
       top: 30%;
       left: 50%;
-      width: 4px; /* Ukuran dasar percikan */
-      height: 4px; 
-      background: transparent; 
+      width: 4px;
+      height: 4px;
+      background: transparent;
       border-radius: 50%;
       pointer-events: none;
       z-index: 10;
     }
-    
-    .candle-icon::before {
-      animation: sparkExplodeSmooth1 2.5s infinite linear;
-    }
-    .candle-icon::after {
-      animation: sparkExplodeSmooth2 3s infinite linear 1.2s;
-    }
-
-    /* Animasi pergerakan percikan api yang lebih halus (smooth) */
-    @keyframes sparkExplodeSmooth1 {
-      0% {
-        box-shadow:
-          0px 0px 4px 1px #ffcc00,
-          -5px 5px 3px 1px #ff6600,
-          5px 10px 4px 1px #ff9900,
-          -8px 8px 3px 1px #ff3300,
-          8px -5px 4px 1px #ffcc00;
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        box-shadow:
-          -5px -40px 4px 1px rgba(255, 204, 0, 0.8),
-          -15px -30px 3px 1px rgba(255, 102, 0, 0.8),
-          15px -50px 4px 1px rgba(255, 153, 0, 0.8),
-          -20px -35px 3px 1px rgba(255, 51, 0, 0.8),
-          20px -25px 4px 1px rgba(255, 204, 0, 0.8);
-        opacity: 0.8;
-      }
-      100% {
-        box-shadow:
-          -10px -90px 4px 1px rgba(255, 204, 0, 0),
-          -25px -70px 3px 1px rgba(255, 102, 0, 0),
-          25px -110px 4px 1px rgba(255, 153, 0, 0),
-          -35px -80px 3px 1px rgba(255, 51, 0, 0),
-          30px -60px 4px 1px rgba(255, 204, 0, 0);
-        opacity: 0;
-        transform: translateY(-20px) scale(0.5); /* Sedikit tambahan pergerakan dari elemen utamanya */
-      }
-    }
-
-    @keyframes sparkExplodeSmooth2 {
-      0% {
-        box-shadow:
-          2px -5px 3px 1px #ff9900,
-          10px 5px 4px 1px #ffcc00,
-          -10px 10px 3px 1px #ff6600,
-          15px 8px 4px 1px #ff3300,
-          -5px 0px 3px 1px #ffcc00;
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        box-shadow:
-          8px -45px 3px 1px rgba(255, 153, 0, 0.8),
-          20px -35px 4px 1px rgba(255, 204, 0, 0.8),
-          -20px -50px 3px 1px rgba(255, 102, 0, 0.8),
-          25px -30px 4px 1px rgba(255, 51, 0, 0.8),
-          -10px -40px 3px 1px rgba(255, 204, 0, 0.8);
-        opacity: 0.8;
-      }
-      100% {
-        box-shadow:
-          15px -100px 3px 1px rgba(255, 153, 0, 0),
-          35px -80px 4px 1px rgba(255, 204, 0, 0),
-          -30px -120px 3px 1px rgba(255, 102, 0, 0),
-          40px -70px 4px 1px rgba(255, 51, 0, 0),
-          -20px -90px 3px 1px rgba(255, 204, 0, 0);
-        opacity: 0;
-        transform: translateY(-20px) scale(0.5);
-      }
-    }
-
+    .candle-icon::before { animation: sparkExplodeSmooth1 2.5s infinite linear; }
+    .candle-icon::after { animation: sparkExplodeSmooth2 3s infinite linear 1.2s; }
+    @keyframes sparkExplodeSmooth1 { 0% { box-shadow: 0px 0px 4px 1px #ffcc00, -5px 5px 3px 1px #ff6600, 5px 10px 4px 1px #ff9900, -8px 8px 3px 1px #ff3300, 8px -5px 4px 1px #ffcc00; opacity: 1; transform: translateY(0) scale(1); } 50% { box-shadow: -5px -40px 4px 1px rgba(255, 204, 0, 0.8), -15px -30px 3px 1px rgba(255, 102, 0, 0.8), 15px -50px 4px 1px rgba(255, 153, 0, 0.8), -20px -35px 3px 1px rgba(255, 51, 0, 0.8), 20px -25px 4px 1px rgba(255, 204, 0, 0.8); opacity: 0.8; } 100% { box-shadow: -10px -90px 4px 1px rgba(255, 204, 0, 0), -25px -70px 3px 1px rgba(255, 102, 0, 0), 25px -110px 4px 1px rgba(255, 153, 0, 0), -35px -80px 3px 1px rgba(255, 51, 0, 0), 30px -60px 4px 1px rgba(255, 204, 0, 0); opacity: 0; transform: translateY(-20px) scale(0.5); } }
+    @keyframes sparkExplodeSmooth2 { 0% { box-shadow: 2px -5px 3px 1px #ff9900, 10px 5px 4px 1px #ffcc00, -10px 10px 3px 1px #ff6600, 15px 8px 4px 1px #ff3300, -5px 0px 3px 1px #ffcc00; opacity: 1; transform: translateY(0) scale(1); } 50% { box-shadow: 8px -45px 3px 1px rgba(255, 153, 0, 0.8), 20px -35px 4px 1px rgba(255, 204, 0, 0.8), -20px -50px 3px 1px rgba(255, 102, 0, 0.8), 25px -30px 4px 1px rgba(255, 51, 0, 0.8), -10px -40px 3px 1px rgba(255, 204, 0, 0.8); opacity: 0.8; } 100% { box-shadow: 15px -100px 3px 1px rgba(255, 153, 0, 0), 35px -80px 4px 1px rgba(255, 204, 0, 0), -30px -120px 3px 1px rgba(255, 102, 0, 0), 40px -70px 4px 1px rgba(255, 51, 0, 0), -20px -90px 3px 1px rgba(255, 204, 0, 0); opacity: 0; transform: translateY(-20px) scale(0.5); } }
     .candle-landing { position: absolute; bottom: 570px; right: 60px; width: 130px; height: 150px; z-index: 60; }
-    .candle-right-panel { position: absolute; right: -15px; bottom: -10px; width: 70px; height: 70px; z-index: 15; }
+    .candle-right-panel { position: absolute; right: -15px; bottom: -10px; width: 90px; height: 90px; z-index: 15; }
     
     /* REFERRAL PANEL */
     #referral-panel { background-image: url('Background2.png'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; border: 1px solid rgba(180, 150, 70, 0.25); display: none; }
@@ -288,40 +280,37 @@
     .referral-title-main { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #e0cba0; line-height: 1.1; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .referral-subtitle { color: #d4d4d4; font-size: 0.8rem; margin-top: 3px; font-weight: 400; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
     
-    /* Harta Emblem & Alert */
     .harta-emblem { 
       position: relative; 
-      width: 105px; /* Ikon Harta diperbesar */
+      width: 105px; 
       height: 105px; 
       cursor: pointer; 
       transition: transform 0.2s; 
-      background: rgba(0,0,0,0.5); /* Overlay lebih gelap */
+      background: rgba(0,0,0,0.2);
       border-radius: 50%; 
-      padding: 12px; 
+      padding: 8px; 
       border: 1px solid rgba(180, 150, 70, 0.5); 
       animation: heartbeat 1.2s ease-in-out infinite; 
     }
-    @keyframes heartbeat { 0% { transform: scale(1); } 25% { transform: scale(1.1); } 35% { transform: scale(1.05); } 45% { transform: scale(1.1); } 55% { transform: scale(1); } 100% { transform: scale(1); } }
     .harta-emblem:hover { transform: scale(1.05); animation: none; }
     .harta-emblem img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 8px rgba(180, 150, 70, 0.6)); }
-    
     .harta-alert { 
       position: absolute; 
       top: 0px; 
       right: 0px; 
-      background: #b91c1c; /* Warna background sedikit lebih gelap agar tegas */
+      background: #b91c1c; 
       color: white; 
-      font-size: 0.95rem; /* Font tanda seru dipertajam */
+      font-size: 0.95rem; 
       font-weight: 900; 
-      width: 18px; /* Lingkaran diperkecil */
+      width: 18px; 
       height: 18px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       border-radius: 50%; 
       border: 2px solid #b8964b; 
-      box-shadow: 0 0 10px rgba(180, 0, 0, 0.9); /* Overlay pulse lebih gelap */
-      text-shadow: 0px 1px 1px black; /* Tanda pentung lebih jelas */
+      box-shadow: 0 0 10px rgba(180, 0, 0, 0.9); 
+      text-shadow: 0px 1px 1px black; 
       animation: pulseAlert 1.5s infinite; 
       z-index: 10; 
       pointer-events: none; 
@@ -345,7 +334,7 @@
     .route-line-fill { width: 8%; height: 100%; background: linear-gradient(90deg, #b8964b, #d4b27a); border-radius: 2px; }
     
     .stage-card { background: rgba(14, 16, 22, 0.6); backdrop-filter: blur(4px); border-radius: 22px; padding: 14px 14px; margin-bottom: 14px; border: 1px solid rgba(180, 150, 70, 0.18); position: relative; }
-    .stage-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; position: relative; }
+    .stage-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; margin-bottom: 14px; position: relative; }
     .stage-icon { width: 28px; height: 28px; background: #1e212a; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #7a6a4a; color: #b8964b; font-size: 0.9rem; }
     .stage-title { color: #f0e6d2; font-size: 1.05rem; font-weight: 600; }
     .stage-sub { color: #b8a88c; font-size: 0.8rem; font-weight: 400; margin-left: 4px; }
@@ -361,16 +350,48 @@
     .info-box-premium { background: rgba(10, 12, 18, 0.6); backdrop-filter: blur(4px); border-radius: 20px; padding: 14px; margin: 18px 0 14px; border: 1px solid rgba(180, 150, 70, 0.2); }
     .info-row { display: flex; align-items: center; gap: 10px; color: #ffffff; font-size: 0.85rem; margin-bottom: 8px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
     .info-row i { color: #b8964b; width: 18px; font-size: 0.9rem; }
-    .btn-pirate-premium { background: transparent; border: 1.5px solid #b8964b; border-radius: 32px; padding: 12px 18px; color: #e0cba0; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; cursor: pointer; font-size: 0.95rem; margin-top: 8px; backdrop-filter: blur(4px); }
+    .btn-pirate-premium { background: transparent; border: 1.5px solid #b8964b; border-radius: 32px; padding: 12px 18px; color: #e0cba0; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; cursor: pointer; font-size: 0.95rem; margin-top: 8px; backdrop-filter: blur(4px); position: relative; }
     .btn-pirate-premium:hover { background: rgba(180, 150, 70, 0.2); border-color: #e0cba0; color: #ffffff; }
+    /* bintang di create refferal kanan bawah */
+    .star-referral-icon {
+      position: absolute;
+      right: -40px;
+      bottom: -30px;
+      width: 55px;
+      height: 55px;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.2s;
+      z-index: 20;
+    }
+    .star-referral-icon img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); }
+    .star-referral-icon:hover { transform: scale(1.1); }
     .footer-note { color: #cccccc; font-size: 0.8rem; text-align: center; margin-top: 14px; letter-spacing: 0.3px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
     .footer-note i { color: #b8964b; margin: 0 4px; }
 
     /* ===== RULES MODAL ===== */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 10000; transition: all 0.3s ease; }
-    .rules-container { max-width: 440px; width: 100%; max-height: 85vh; overflow-y: auto; background-image: url('background.png'); background-size: cover; background-position: center; border-radius: 32px; padding: 24px 20px 28px 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); }
-    .rules-title { text-align: center; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: #ffd966; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); border-radius: 40px; padding: 8px 16px; }
+    .rules-container { max-width: 440px; width: 100%; max-height: 85vh; overflow-y: auto; background-image: url('background.png'); background-size: cover; background-position: center; border-radius: 32px; padding: 24px 20px 28px 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); position: relative; }
+    .rules-title { text-align: center; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: #ffd966; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); border-radius: 40px; padding: 8px 16px; position: relative; }
     .rules-title i { color: #ffd700; }
+    /* peta atas rules */
+    .map-icon-rules {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 55px;
+      height: 55px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      border: 1px solid #b8964b;
+      z-index: 5;
+    }
+    .map-icon-rules img { width: 70%; height: 70%; object-fit: contain; filter: drop-shadow(0 0 4px #ffcc66); }
     .rules-content-block { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); border-radius: 24px; padding: 16px 14px; margin-bottom: 16px; border: 1px solid rgba(212, 175, 55, 0.25); }
     .rule-item { display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.5); border-radius: 40px; padding: 8px 16px; border-left: 3px solid #d4af37; }
     .rule-icon { color: #ffd966; width: 28px; font-size: 1rem; text-align: center; }
@@ -400,174 +421,34 @@
       box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
       position: relative;
     }
-    .admin-modal .modal-content::before {
-      display: none;
-    }
-    .admin-modal h3 {
-      color: #ffd966;
-      font-family: 'Cinzel', serif;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-    .admin-modal h3 i {
-      color: #ffd966;
-    }
-    .admin-form-container {
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      border-radius: 24px;
-      padding: 18px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    .admin-form-title {
-      color: #ffd966;
-      font-family: 'Cinzel', serif;
-      font-weight: 600;
-      margin-bottom: 16px;
-      font-size: 1.1rem;
-      text-align: center;
-    }
-    .admin-form-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .admin-form-row input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid #b8964b;
-      border-radius: 40px;
-      padding: 12px 16px;
-      color: #f0e6d2;
-      font-size: 0.9rem;
-      font-family: 'Inter', sans-serif;
-    }
-    .admin-form-row input:focus {
-      outline: none;
-      border-color: #ffd966;
-      box-shadow: 0 0 10px rgba(255, 217, 102, 0.3);
-    }
-    .admin-form-row input::placeholder {
-      color: #8a7a5a;
-    }
-    .admin-form-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 10px;
-    }
-    .admin-form-actions button {
-      background: transparent;
-      border: 1px solid #d4af37;
-      color: #ffd966;
-      border-radius: 40px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-    .admin-form-actions button:hover {
-      background: rgba(212, 175, 55, 0.2);
-      transform: scale(1.02);
-    }
-    .admin-mass-btn {
-      background: rgba(212, 175, 55, 0.2);
-      border: 1px solid #d4af37;
-      color: #ffd966;
-      border-radius: 40px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .admin-mass-btn:hover {
-      background: rgba(212, 175, 55, 0.4);
-      transform: scale(1.02);
-    }
-    .admin-table {
-      width: 100%;
-      color: #e0d5b0;
-      border-collapse: collapse;
-      font-size: 0.8rem;
-    }
-    .admin-table th {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 12px;
-      text-align: left;
-      color: #ffd966;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    .admin-table td {
-      padding: 12px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      color: #f0e6d2;
-    }
-    .admin-actions {
-      display: flex;
-      gap: 8px;
-    }
-    .admin-actions button {
-      background: transparent;
-      border: 1px solid #d4af37;
-      color: #ffd966;
-      border-radius: 30px;
-      padding: 4px 12px;
-      cursor: pointer;
-      font-size: 0.7rem;
-      transition: all 0.2s;
-    }
-    .admin-actions button:hover {
-      background: rgba(212, 175, 55, 0.3);
-      transform: scale(1.02);
-    }
-    .admin-delete-all {
-      background: rgba(180, 70, 70, 0.3);
-      border-color: #b86b6b;
-      color: #ffaaaa;
-    }
-    .admin-delete-all:hover {
-      background: rgba(180, 70, 70, 0.5);
-    }
+    .admin-modal .modal-content::before { display: none; }
+    .admin-modal h3 { color: #ffd966; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 20px; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; gap: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    .admin-modal h3 i { color: #ffd966; }
+    .admin-form-container { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); border-radius: 24px; padding: 18px; margin-bottom: 20px; border: 1px solid rgba(212, 175, 55, 0.3); }
+    .admin-form-title { color: #ffd966; font-family: 'Cinzel', serif; font-weight: 600; margin-bottom: 16px; font-size: 1.1rem; text-align: center; }
+    .admin-form-row { display: flex; gap: 12px; margin-bottom: 16px; }
+    .admin-form-row input { flex: 1; background: rgba(0, 0, 0, 0.6); border: 1px solid #b8964b; border-radius: 40px; padding: 12px 16px; color: #f0e6d2; font-size: 0.9rem; font-family: 'Inter', sans-serif; }
+    .admin-form-row input:focus { outline: none; border-color: #ffd966; box-shadow: 0 0 10px rgba(255, 217, 102, 0.3); }
+    .admin-form-row input::placeholder { color: #8a7a5a; }
+    .admin-form-actions { display: flex; gap: 12px; justify-content: center; margin-top: 10px; }
+    .admin-form-actions button { background: transparent; border: 1px solid #d4af37; color: #ffd966; border-radius: 40px; padding: 10px 20px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .admin-form-actions button:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.02); }
+    .admin-mass-btn { background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; color: #ffd966; border-radius: 40px; padding: 10px 20px; cursor: pointer; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .admin-mass-btn:hover { background: rgba(212, 175, 55, 0.4); transform: scale(1.02); }
+    .admin-table { width: 100%; color: #e0d5b0; border-collapse: collapse; font-size: 0.8rem; }
+    .admin-table th { background: rgba(0, 0, 0, 0.5); padding: 12px; text-align: left; color: #ffd966; font-weight: 600; border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
+    .admin-table td { padding: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); color: #f0e6d2; }
+    .admin-actions { display: flex; gap: 8px; }
+    .admin-actions button { background: transparent; border: 1px solid #d4af37; color: #ffd966; border-radius: 30px; padding: 4px 12px; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
+    .admin-actions button:hover { background: rgba(212, 175, 55, 0.3); transform: scale(1.02); }
+    .admin-delete-all { background: rgba(180, 70, 70, 0.3); border-color: #b86b6b; color: #ffaaaa; }
+    .admin-delete-all:hover { background: rgba(180, 70, 70, 0.5); }
     
     /* Email mass preview */
-    .email-mass-preview {
-      max-height: 200px;
-      overflow-y: auto;
-      margin: 12px 0;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 16px;
-      padding: 10px;
-    }
-    .email-preview-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      margin-bottom: 6px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 30px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-    }
-    .email-preview-item.duplicate {
-      background: rgba(180, 70, 70, 0.2);
-      border-left: 3px solid #b86b6b;
-    }
-    .email-preview-item.new {
-      background: rgba(70, 120, 70, 0.2);
-      border-left: 3px solid #6b9a6b;
-    }
+    .email-mass-preview { max-height: 200px; overflow-y: auto; margin: 12px 0; background: rgba(0, 0, 0, 0.4); border-radius: 16px; padding: 10px; }
+    .email-preview-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; margin-bottom: 6px; background: rgba(0, 0, 0, 0.3); border-radius: 30px; border: 1px solid rgba(212, 175, 55, 0.2); }
+    .email-preview-item.duplicate { background: rgba(180, 70, 70, 0.2); border-left: 3px solid #b86b6b; }
+    .email-preview-item.new { background: rgba(70, 120, 70, 0.2); border-left: 3px solid #6b9a6b; }
     .badge-duplicate { background: #b86b6b; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.65rem; }
     .badge-new { background: #6b9a6b; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.65rem; }
     .btn-remove-email { background: #b86b6b; border: none; color: white; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
@@ -587,7 +468,7 @@
     .invite-list li { padding: 10px 14px; margin-bottom: 6px; background: rgba(0, 0, 0, 0.3); border-radius: 40px; border: 1px solid rgba(212, 175, 55, 0.2); color: #f0e6d2; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
     .invite-list li:hover { background: rgba(212, 175, 55, 0.15); border-color: #d4af37; transform: translateX(3px); }
     .invite-list .email-reward { color: #ffd966; font-weight: 700; background: rgba(0, 0, 0, 0.3); padding: 4px 12px; border-radius: 30px; font-size: 0.8rem; }
-    #modalOverlay .modal-content { background-image: url('background.png'); background-size: cover; background-position: center; border: 2px solid #d4af37; width: 400px; max-width: 95%; padding: 24px; border-radius: 28px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+    #modalOverlay .modal-content { background-image: url('background.png'); background-size: cover; background-position: center; border: 2px solid #d4af37; width: 400px; max-width: 95%; padding: 24px; border-radius: 28px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); position: relative; }
     #modalOverlay h3 { color: #ffd966; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 20px; font-size: 1.6rem; }
     #modalOverlay .form-group label { color: #ffd966; }
     #modalOverlay .form-group input, #modalOverlay .form-group select { background: rgba(0, 0, 0, 0.4); border: 1px solid #b8964b; border-radius: 28px; color: #f0e6d2; font-size: 0.85rem; padding: 10px 14px; }
@@ -617,18 +498,26 @@
         <video autoplay loop muted playsinline><source src="banner.mp4" type="video/mp4"></video>
         <div class="banner-header"><span>Sewa Linkedin</span></div>
         <i class="fas fa-user-cog admin-icon-banner" onclick="openAdminPasswordModal()"></i>
-        <div class="skills-overlay"><span class="skill-icon"><i class="fas fa-heart"></i> Fads 💫</span><span class="skill-icon"><i class="fas fa-dharmachakra"></i> 7777</span></div>
+        <div class="skills-overlay"><span class="skill-icon"><i class="fas fa-heart"></i>Fads 💫</span><span class="skill-icon"><i class="fas fa-dharmachakra"></i> 7777</span></div>
       </div>
       <div class="stats-block">
         <div class="stat-item"><div class="stat-header"><span>NEW ACC</span><span>Rp. 160.000</span></div><div class="progress-container"><div class="progress-bar-bg"><div class="progress-fill fill-newacc" style="width:100%"></div></div><i class="fas fa-chest chest-icon" onclick="showNotification('New acc Rp. 160.000')"></i></div></div>
-        <div class="stat-item"><div class="stat-header"><span>UNRESTRICT</span><span>Rp. 250.000</span></div><div class="progress-container"><div class="progress-bar-bg"><div class="progress-fill fill-unrestrict" style="width:100%"></div></div><i class="fas fa-chest chest-icon" onclick="showNotification('Unrestrict Rp 270.000')"></i></div></div>
+        <div class="stat-item"><div class="stat-header"><span>UNRESTRICT</span><span>Rp. 250.000</span></div><div class="progress-container"><div class="progress-bar-bg"><div class="progress-fill fill-unrestrict" style="width:100%"></div></div><i class="fas fa-chest chest-icon" onclick="showNotification('Unrestrict Rp 250.000')"></i></div></div>
         <div class="week-row"><span>Week</span><span class="week-value">21</span></div>
       </div>
       <div class="streamer-info"><div class="streamer-avatar"><i class="fab fa-linkedin"></i></div><div class="streamer-text">Gabung dapatkan Income setiap Minggu nya!</div></div>
       <div class="floating-nav-container">
         <div class="floating-nav-bar">
-          <div class="nav-left"><div class="nav-icon rules-nav-item" onclick="openRulesModal()"><i class="fas fa-gavel"></i><span>Rules</span></div><div class="nav-icon" onclick="showReferralPanel()"><i class="fas fa-gift"></i><span>Refferal</span></div></div>
-          <div class="nav-right"><div class="nav-icon" onclick="window.open('https://checkdata7.vercel.app/', '_blank')"><i class="fas fa-credit-card"></i><span>Payment</span></div><div class="nav-icon" onclick="showNotification('Pantau Grup Utama❗')"><i class="fas fa-info-circle"></i><span>Info</span></div></div>
+          <div class="nav-left">
+            <div class="extra-icon-left"><img src="pelampung.png" alt="pelampung" draggable="false" oncontextmenu="return false;" onclick="showNotification('Pelampung petualang!')"></div>
+            <div class="nav-icon rules-nav-item" onclick="openRulesModal()"><i class="fas fa-gavel"></i><span>Rules</span></div>
+            <div class="nav-icon" onclick="showReferralPanel()"><i class="fas fa-gift"></i><span>Refferal</span></div>
+          </div>
+          <div class="nav-right">
+            <div class="nav-icon" onclick="window.open('https://checkdata7.vercel.app/', '_blank')"><i class="fas fa-credit-card"></i><span>Payment</span></div>
+            <div class="nav-icon" onclick="showNotification('Pantau Grup Utama❗')"><i class="fas fa-info-circle"></i><span>Info</span></div>
+            <div class="extra-icon-right"><img src="bintang.png" alt="bintang" draggable="false" oncontextmenu="return false;" onclick="showNotification('Bintang kehormatan!')"></div>
+          </div>
           <div class="center-home-button" onclick="showRightPanel()"><img src="Jangkar.png" alt="Home" draggable="false" oncontextmenu="return false;"></div>
         </div>
       </div>
@@ -650,6 +539,7 @@
       <div class="btn-laporan-wrapper" style="position: relative;">
         <button class="btn-laporan-icon btn-with-tooltip" id="btnLaporan" onclick="laporanSewaClick()"><i class="fas fa-file-alt"></i><span class="tooltip-text">Laporan Sewa</span></button>
         <div class="candle-icon candle-right-panel"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div>
+        <div class="star-home-icon"><img src="bintang.png" alt="bintang" draggable="false" oncontextmenu="return false;" onclick="showNotification('Bintang bersinar!')"></div>
       </div>
     </div>
   </div>
@@ -673,18 +563,21 @@
       <div class="voyage-card"><div class="voyage-label"><i class="fas fa-ship"></i> Voyage Progress</div><div class="route-container"><div class="route-nodes"><div class="node"><div class="node-marker"><i class="fas fa-ship"></i></div><span class="node-label">Start</span></div><div class="node"><div class="node-marker"><i class="fas fa-map"></i></div><span class="node-label">2–4</span></div><div class="node"><div class="node-marker"><i class="fas fa-anchor"></i></div><span class="node-label">5–7</span></div><div class="node"><div class="node-marker harta-marker"><img src="Harta.png" alt="Harta" draggable="false" oncontextmenu="return false;"></div><span class="node-label">8–10</span></div></div><div class="route-line-bg"><div class="route-line-fill" style="width:8%"></div></div></div></div>
       <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-left"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 1 <span class="stage-sub">· First Catch</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">2 Referral</span></div><span class="reward-value">Rp 112.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">3 Referral</span></div><span class="reward-value">Rp 160.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">4 Referral</span></div><span class="reward-value">Rp 208.000</span></div></div>
       <div class="stage-card"><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 2 <span class="stage-sub">· Deep Waters</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">5 Referral</span></div><span class="reward-value">Rp 272.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">6 Referral</span></div><span class="reward-value">Rp 320.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">7 Referral</span></div><span class="reward-value">Rp 368.000</span></div></div>
-      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-right"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 3 <span class="stage-sub">· Captain’s Bounty</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">8 Referral</span></div><span class="reward-value">Rp 432.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">9 Referral</span></div><span class="reward-value">Rp 480.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">10 Referral</span></div><span class="reward-value">Rp 640.000</span></div></div>
+      <div class="stage-card" style="position: relative;"><div class="candle-icon candle-stage-right"><img src="lilin.png" alt="lilin" draggable="false" oncontextmenu="return false;"></div><div class="stage-header"><div class="stage-icon"><i class="fas fa-scroll"></i></div><div class="stage-title">Tahap 3 <span class="stage-sub">· Captain’s Bounty</span></div></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">8 Referral</span></div><span class="reward-value">Rp 432.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">9 Referral</span></div><span class="reward-value">Rp 480.000</span></div><div class="reward-row"><div class="reward-left"><span class="reward-icon"><i class="fas fa-user"></i></span><span class="reward-label">10 Referral</span></div><span class="reward-value">Rp 544.000</span></div></div>
       <div class="info-box-premium"><div class="info-row"><i class="fas fa-coins"></i> <span>1 Reff = Rp 48.000 · 10+ Reff = Rp 64.000/undangan</span></div><div class="info-row"><i class="fas fa-clock"></i> <span>Bonus 1x, cair minggu yang sama, reset tiap minggu</span></div><div class="info-row"><i class="fas fa-infinity"></i> <span>Tidak ada batas maksimal undangan</span></div></div>
-      <button class="btn-pirate-premium" onclick="openModal()"><i class="fas fa-qrcode"></i> Buat Kode Refferal</button>
+      <button class="btn-pirate-premium" onclick="openModal()"><i class="fas fa-qrcode"></i> Buat Kode Refferal
+        <div class="star-referral-icon"><img src="bintang.png" alt="bintang" draggable="false" oncontextmenu="return false;" onclick="event.stopPropagation(); showNotification('✨ Bintang Refferal ✨')"></div>
+      </button>
       <div class="footer-note"><i class="fas fa-skull-crossbones"></i> all stages · claim your bounty <i class="fas fa-skull-crossbones"></i></div>
     </div>
   </div>
 
   <div class="modal-overlay" id="rulesModal">
     <div class="rules-container">
+      <div class="map-icon-rules"><img src="peta.png" alt="peta" draggable="false" oncontextmenu="return false;"></div>
       <div class="rules-title"><i class="fas fa-skull-crossbones"></i> PIRATE'S CODE <i class="fas fa-compass"></i></div>
       <div class="rules-content-block"><div class="rules-grid"><div class="rule-item"><div class="rule-icon"><i class="fas fa-ship"></i></div><div class="rule-text">Account berumur min 1 Tahun</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-coins"></i></div><div class="rule-text">Minimal 20 Koneksi</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-skull"></i></div><div class="rule-text">Log out Account sebelum di Sewa</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-anchor"></i></div><div class="rule-text">Di larang Log in selama masa sewa</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-map-marked-alt"></i></div><div class="rule-text">Di larang Ganti Email</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-gem"></i></div><div class="rule-text">Pribadi (bukan hasil Jual / Beli)</div></div><div class="rule-item"><div class="rule-icon"><i class="fas fa-check-circle"></i></div><div class="rule-text">Dapat di verifikasi</div></div></div></div>
-      <div class="rules-content-block"><div class="section-title-block"><i class="fab fa-whatsapp"></i> Crew Gatherings</div><a href="https://chat.whatsapp.com/JRJt2Ngw7G9Fx9yNoMCUfB" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Main Fleet (Group Utama)</a><a href="https://chat.whatsapp.com/DOa2LYFTtlrBUVabORZiAr?mode=wwt" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Discussion (Grup Diskusi)</a><a href="https://chat.whatsapp.com/DOa2LYFTtlrBUVabORZiAr?mode=wwt" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Restrict Help (Grup Bantuan Restrict)</a></div>
+      <div class="rules-content-block"><div class="section-title-block"><i class="fab fa-whatsapp"></i> Crew Gatherings</div><a href="https://chat.whatsapp.com/JRJt2Ngw7G9Fx9yNoMCUfB" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Fads (Group Utama)</a><a href="https://chat.whatsapp.com/DOa2LYFTtlrBUVabORZiAr?mode=wwt" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Discussion (Grup Diskusi)</a><a href="https://chat.whatsapp.com/DOa2LYFTtlrBUVabORZiAr?mode=wwt" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Restrict Help (Grup Bantuan Restrict)</a></div>
       <div class="rules-content-block"><div class="section-title-block"><i class="fas fa-coins"></i> Bounty & Payment</div><ul class="payment-list"><li><i class="fas fa-coins"></i> Fee sewa Account: <span style="color:#ffd700;">Rp 160.000</span> minggu</li><li><i class="fas fa-coins"></i> Fee Unrestrict: <span style="color:#ffd700;">Rp 250.000</span></li><li><i class="fas fa-scroll"></i> New Account restrict dibayar setelah un-restrict</li><li><i class="fas fa-scroll"></i> Minggu selanjutnya New Account → Old Account</li><li><i class="fas fa-scroll"></i> Old Account restrict sebelum settlement tidak ada kompensasi</li><li><i class="fas fa-clock"></i> Distribusi tiap Kamis/Jum'at</li><li><i class="fas fa-handshake"></i> Refferer: bisa 1 rekening dengan Referralnya</li><li><i class="fas fa-shield-alt"></i> Full payment setiap minggu jika tidak restrict</li></ul></div>
       <div class="rules-content-block"><div class="section-title-block"><i class="fas fa-exclamation-triangle"></i> The Curse of Restrict</div><div class="restrict-text">Restrict adalah pembatasan sementara LinkedIn karena penggunaan 2 device atau aktivitas spam.</div><div class="restrict-text">Akun dapat dipulihkan via verifikasi identitas. Join grup bantuan Restrict.</div><div class="restrict-text" style="color: #ffd700;">Bonus Rp250.000 untuk akun berhasil un-restrict (berlaku 1x).</div></div>
       <button class="close-btn" onclick="closeRulesModal()"><i class="fas fa-compass"></i> AYE, UNDERSTOOD <i class="fas fa-skull-crossbones"></i></button>
@@ -697,6 +590,7 @@
       <div class="form-group"><label>Email :</label><input type="email" id="emailReferral" oninput="updateCodeFromEmail()" placeholder="contoh: johndoe123@gmail.com"></div>
       <div class="form-group"><label>Nama :</label><input type="text" id="namaReferral" placeholder="Masukkan nama Anda"></div>
       <div class="form-group"><label>Payment Method :</label><select id="paymentMethod"><option>Seabank</option><option>Dana</option><option>Ovo</option><option>Gopay</option><option>BRI</option><option>BCA</option><option>Mandiri</option><option>Bsi</option></select></div>
+      <div class="form-group"><label>No Rekening :</label><input type="text" id="nomorRekening" placeholder="Masukkan nomor rekening"></div>
       <div class="form-group"><label>Target Invite :</label><input type="number" id="targetInvite" placeholder="Contoh: 10"></div>
       <div class="form-group"><label>Code Refferal :</label><input type="text" id="codeDisplay" placeholder="Custom / Auto 5 Angka" style="color:#e0cba0;"></div>
       <div class="modal-actions"><button class="btn-submit" onclick="generateAndSendNew()">Buat & Kirim</button><button class="btn-close" onclick="closeModal()">Tutup</button></div>
@@ -742,7 +636,7 @@
       </div>
       <div style="max-height: 300px; overflow-y: auto;">
         <table class="admin-table" id="adminTable">
-          <thead><tr><th>Email</th><th>Kode</th><th>Aksi</th></tr></thead>
+          <thead>汽水<th>Email</th><th>Kode</th><th>Aksi</th></thead>
           <tbody id="adminTableBody"></tbody>
         </table>
       </div>
@@ -786,22 +680,15 @@
       
       if (!email) { codeDisplay.value = ''; return; }
       
-      // Ambil semua angka asli dari email (jika ada)
       let numbers = email.replace(/\D/g, '');
-      
-      // Jika angka asli kurang dari 5 digit, kita konversi huruf di email jadi angka agar mencapai 5 digit
       if (numbers.length < 5) {
         let fallback = "";
         for (let i = 0; i < email.length; i++) {
           fallback += email.charCodeAt(i).toString();
         }
-        numbers += fallback; // Gabungkan angka asli dengan hasil konversi
+        numbers += fallback;
       }
-      
-      // Keamanan ekstra jika masih kurang (sangat jarang terjadi)
       numbers += "012345";
-      
-      // Pastikan output ke input selalu di-potong TEPAT 5 ANGKA
       codeDisplay.value = numbers.substring(0, 5);
     }
 
@@ -809,10 +696,11 @@
       const email = document.getElementById('emailReferral')?.value.trim();
       const nama = document.getElementById('namaReferral')?.value.trim();
       const payment = document.getElementById('paymentMethod')?.value;
+      const noRekening = document.getElementById('nomorRekening')?.value.trim();
       const target = document.getElementById('targetInvite')?.value.trim();
       const code = document.getElementById('codeDisplay')?.value.trim();
-      if (!email || !nama || !target || !code) { showNotification('Harap isi Email, Nama, Target, dan Kode'); return; }
-      const message = `*Hallo saya mendaftar sebagai Refferer Group 7777*\n\nNama : ${nama}\nEmail : ${email}\nPayment : ${payment}\nTarget : ${target}\nCode : ${code}\n\nThanks`;
+      if (!email || !nama || !target || !code || !noRekening) { showNotification('Harap isi Email, Nama, No Rekening, Target, dan Kode'); return; }
+      const message = `*Hallo saya mendaftar sebagai Refferer Group 7777*\n\nNama : ${nama}\nEmail : ${email}\nPayment : ${payment}\nNo Rekening : ${noRekening}\nTarget : ${target}\nCode : ${code}\n\nThanks`;
       window.open(`https://wa.me/+6287722495525?text=${encodeURIComponent(message)}`, '_blank');
       if (typeof progressPoints !== 'undefined' && progressPoints >= 1 && progressPoints < 2) {
         progressPoints = 2; updateProgress(); showNotification('Checkpoint 2: Form Refferal berhasil dikirim!');
@@ -820,6 +708,7 @@
       closeModal();
       document.getElementById('emailReferral').value = ''; document.getElementById('namaReferral').value = '';
       document.getElementById('targetInvite').value = ''; document.getElementById('codeDisplay').value = '';
+      document.getElementById('nomorRekening').value = '';
     }
 
     function openModal() { document.getElementById('modalOverlay').style.display = 'flex'; updateCodeFromEmail(); }
@@ -827,7 +716,7 @@
     function openRulesModal() { document.getElementById('rulesModal').style.display = 'flex'; }
     function closeRulesModal() { document.getElementById('rulesModal').style.display = 'none'; }
 
-    const BIN_ID = '69ae82a0d0ea881f40ff509e';
+    const BIN_ID = '69b418d0aa77b81da9e035c9';
     const API_KEY = '$2a$10$5FPg7m1Qs/t4whphxNPecOPFqPoIheOnrXIoYAq42A4btApsw0vIm';
     const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
@@ -943,7 +832,13 @@
       adminResetForm();
     };
 
-    function getTotalReward(count) { if (count >= 10) return count * 4; let bonus = (count === 2 || count === 5 || count === 8) ? 1 : 0; return count * 3 + bonus; }
+    function getTotalReward(count) { 
+        if (count <= 0) return 0;
+        if (count >= 11) return count * 64000;
+        const rewards = { 1: 48000, 2: 112000, 3: 160000, 4: 208000, 5: 272000, 6: 320000, 7: 368000, 8: 432000, 9: 480000, 10: 544000 };
+        return rewards[count];
+    }
+
     function renderLeaderboard() {
       const list = document.getElementById('leaderboardList'); if (!list) return;
       if (globalUsers.length === 0) { list.innerHTML = '<li style="justify-content:center; padding:20px;">📭 Belum ada data</li>'; return; }
@@ -951,11 +846,24 @@
       globalUsers.forEach(u => { let c = u.referral_code || 'tanpa-kode'; if (!groups[c]) groups[c] = []; groups[c].push(u.email); });
       const sorted = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
       list.innerHTML = '';
-      sorted.forEach(code => { let emails = groups[code], cnt = emails.length, usd = getTotalReward(cnt), idr = usd * 16000; let li = document.createElement('li'); li.innerHTML = `<span class="email"><strong>${code}</strong> (${cnt})</span><span class="reward">Rp ${idr.toLocaleString()}</span>`; li.querySelector('.reward').addEventListener('click', (e) => { e.stopPropagation(); showInviteDetail(code, emails); }); list.appendChild(li); });
+      sorted.forEach(code => { 
+          let emails = groups[code];
+          let cnt = emails.length;
+          let idr = getTotalReward(cnt);
+          let li = document.createElement('li'); 
+          li.innerHTML = `<span class="email"><strong>${code}</strong> (${cnt})</span><span class="reward">Rp ${idr.toLocaleString('id-ID')}</span>`; 
+          li.querySelector('.reward').addEventListener('click', (e) => { e.stopPropagation(); showInviteDetail(code, emails); }); 
+          list.appendChild(li); 
+      });
     }
+
     function showInviteDetail(code, emails) {
       let html = `<p style="color:#ffd966; margin-bottom:15px; text-align:center;"><strong>${code}</strong> — ${emails.length} undangan</p><ul class="invite-list">`;
-      emails.forEach((email, index) => { let nilai = 3; if (emails.length >= 10) nilai = 4; else if (index + 1 === 2 || index + 1 === 5 || index + 1 === 8) nilai = 4; html += `<li><span>${email}</span> <span class="email-reward">$${nilai}</span></li>`; });
+      emails.forEach((email, index) => { 
+          let count = emails.length;
+          let perEmailReward = (count >= 11) ? "Rp 64k" : `Rp ${(getTotalReward(index+1) - (index===0?0:getTotalReward(index)))/1000}k`;
+          html += `<li><span>${email}</span> <span class="email-reward">${perEmailReward}</span></li>`; 
+      });
       html += '</ul>'; document.getElementById('inviteDetailContent').innerHTML = html; document.getElementById('inviteDetailModalOverlay').style.display = 'flex';
     }
     async function openLeaderboardModal() { await fetchData(); renderLeaderboard(); document.getElementById('leaderboardModalOverlay').style.display = 'flex'; }
@@ -1019,7 +927,7 @@
       if (type === 'newacc') { email = document.getElementById('newacc-email').value.trim(); password = document.getElementById('newacc-password').value.trim(); koneksi = document.getElementById('newacc-koneksi').value.trim(); age = document.getElementById('newacc-age').value.trim(); }
       else { email = document.getElementById('unrestrict-email').value.trim(); password = document.getElementById('unrestrict-password').value.trim(); koneksi = document.getElementById('unrestrict-koneksi').value.trim(); age = document.getElementById('unrestrict-age').value.trim(); }
       if (!email || !password || !koneksi || !age) { showNotification('Harap isi semua field'); return; }
-      let title = type === 'newacc' ? 'New account Request : 7777' : 'Unrestrict Request : 7777 ';
+      let title = type === 'newacc' ? 'New account Request : 7777' : 'Unrestrict Request : 7777';
       let message = `*${title}*\n\nEmail : ${email}\nPassword : ${password}\nConnection : ${koneksi}\nAge : ${age}\nGroup : 7777\n\nThanks boss.`;
       window.open(`https://wa.me/+13123717165?text=${encodeURIComponent(message)}`, '_blank');
       if (progressPoints === 1) { progressPoints = 2; updateProgress(); showNotification('Checkpoint 2: Form berhasil dikirim!'); }
@@ -1036,6 +944,22 @@
       } else showNotification('Selesaikan checkpoint 1 dan 2 terlebih dahulu 🎁');
       if (tutorialActive && tutorialStep === 2) nextWalkthrough();
     }
+
+    // ======================= BUBBLE ANIMATION =======================
+    function createBubble() {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      const size = Math.random() * 30 + 8;
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = Math.random() * 100 + '%';
+      bubble.style.animationDuration = Math.random() * 8 + 5 + 's';
+      bubble.style.opacity = Math.random() * 0.5 + 0.2;
+      bubble.style.background = `radial-gradient(circle at 30% 30%, rgba(120, 200, 255, 0.6), rgba(60, 120, 220, 0.3))`;
+      document.body.appendChild(bubble);
+      bubble.addEventListener('animationend', () => { bubble.remove(); });
+    }
+    setInterval(createBubble, 800);
 
     window.addEventListener('load', ()=>{ fetchData(); checkFirstTimeTutorial(); });
     window.onclick = (e) => { if(e.target.classList.contains('modal-overlay')) e.target.style.display='none'; };
